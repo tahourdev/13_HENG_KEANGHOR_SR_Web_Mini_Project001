@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <title>Search Page</title>
+
+    <style type="text/tailwindcss">
+      @layer base {
+        :root {
+          --font-primary: 'Poppins', sans-serif;
+          --font-secondary: 'Reenie Beanie', sans-serif;
+          --color-primary: #4f46e5;
+          --color-secondary: #e11d48;
+        }
+
+        body {
+          font-family: var(--font-primary);
+        }
+      }
+      .divided-line {
+        @apply relative;
+      }
+
+      .divided-line::before {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-b-full right-[-2px] top-[5px];
+        content: '';
+      }
+
+      .divided-line::after {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-t-full right-[-2px] bottom-[5px];
+        content: '';
+      }
+      .font-reenie {
+        font-family: var(--font-secondary);
+      }
+      .bgHero {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/604a/e8b7/bdeb76439435bcdd5226f9f7e62e314f?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Esh7PSpnIV8x2-s2JCw5Oqdj6oMrZauGKxp5T1cmwy-F0nmxSaVHHFTYoOd0Spvw9sOjluKKvoRxLbCnizIRaCxzIlUdM2rn6m2fAOgaExR5L4fZY9R-Mrkjm9bx~NzLUtDuuz5Pl2gmgZPndFYhVKAq77RkTMcaJnRUBUQjmm0WVyJFVjlRXWedHUJERz7rZrDv7XwszCbgg4oEDttEtHOxZdev7vieWmxRHhSJb11nvZLaTm~nmFlk~RxWaD3i0kk6s88pJr79Eq2hAS9Gyreqj3HgmX7DU1OI3QSqBroWCL0BCpCe6SynpjbCPOu1i5wxBwYlq6QfD23sKc4K4Q__')] bg-cover bg-center;
+      }
+      .bgFooter {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/367e/6b26/ffb7e3ab4140f39bcef544d448e859bd?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ju~RhnJn0oiK0CSNwiHTiMv5dEhQCclGLqHjDNAnNfjDT~XIhELr2i7o6ldcjmSNrj-NBOZZII~aalY1x~ZmAG1P8YFdUZ1CvUGrEYasqgTbelOehRYLhA~MZHOxhpHbVdFLgtILqaZWmXYf-SF4Yuj93DqFrPwJsTTlVMKW~B03TdJUL5BELdNWVK3fziKKlG31Wb9OCxTuTEL96PtCjI4-f-h4ErEvt~e689Fec50V7MBIrXjCbCcf2-E2WBMqWQJmDmzvSnh~~5mF0jQ5zzA9~SzhKLfFbbQ6uiXdwSQ8DGEyIHvh7A2oa5i953NG1Zdwg-tjfhzQRZ5qEE02kQ__')];
+      }
+    </style>
+  </head>
+  <body>
+    <header class="bg-gray-100">
+      <nav
+        class="h-20 container mx-auto lg:px-20 transition-all duration-all ease-in-out px-10 justify-between flex flex-wrap items-center">
+        <a class="md:max-w-[150px] max-w-[100px] transition-all duration-all ease-in-out">
+          <img class="w-full" src="../assets/logo.svg" alt="logo" />
+        </a>
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button
+            type="button"
+            class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-4 py-2 text-center">
+            Search
+          </button>
+          <button
+            data-collapse-toggle="navbar-sticky"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-sticky"
+            aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-sticky">
+          <ul class="lg:flex hidden items-center text-sm">
+            <li class="px-8 divided-line">
+              <a href="#">Home</a>
+            </li>
+            <li class="px-8 divided-line"><a href="#travel">Travel</a></li>
+            <li class="px-8 divided-line"><a href="#pages">Pages</a></li>
+            <li class="px-8 divided-line"><a href="#shop">Shop</a></li>
+            <li class="px-8 divided-line"><a href="#blog">Blog</a></li>
+            <li class="px-8"><a href="#contact-us">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <!-- hero section -->
+      <section class="relative">
+        <!-- Background Hero Image with Overlay -->
+        <div class="h-[529px] bgHero relative">
+          <div class="absolute top-0 w-full h-full bg-gradient-to-t from-black/60"></div>
+          <h1
+            class="md:text-5xl absolute left-0 right-0 top-1/2 -translate-y-1/2 text-3xl font-bold text-center text-white">
+            Greece
+          </h1>
+        </div>
+
+        <!-- Information Card -->
+        <div
+          class="container md:px-20 md:my-0 my-12 px-10 mx-auto relative transition-all duration-100 ease-in-out flex items-center justify-center">
+          <div
+            class="bg-white w-full p-4 shadow-md rounded-lg flex flex-col md:flex-row items-center border border-[0.8] border-gray-100 space-y-6 md:space-y-0 relative md:-top-10 z-20">
+            <!-- Packages Information -->
+            <div class="w-full flex gap-4">
+              <img class="w-8" src="../assets/plan.svg" alt="" />
+              <div>
+                <p class="text-[#6E6E6E]">Packages</p>
+                <p class="font-bold">3 Available</p>
+              </div>
+            </div>
+
+            <!-- Contact Person -->
+            <div class="w-full flex gap-4">
+              <img class="w-8" src="../assets/record.svg" alt="" />
+              <div>
+                <p class="text-[#6E6E6E]">Sue Black</p>
+                <p class="font-bold">+ 485 257 294</p>
+              </div>
+            </div>
+
+            <!-- Contact Email -->
+            <div class="w-full flex gap-4">
+              <img class="w-8" src="../assets/mes.svg" alt="" />
+              <div>
+                <p class="text-[#6E6E6E]">Contact Us</p>
+                <p class="font-bold">travel@info.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="md:my-12 pt-12 sm:pt-0">
+        <div
+          class="container mx-auto md:px-20 px-10 transition-all duration-100 ease-in-out flex lg:flex-row flex-col gap-12">
+          <!-- Image Gallery -->
+          <div class="flex gap-8 items-end pt-10">
+            <!-- First Image -->
+            <figure class="basis-[270px] rounded-lg overflow-hidden h-[450px]">
+              <img
+                class="h-full object-cover"
+                src="https://s3-alpha-sig.figma.com/img/6031/6c2c/736c91bda431b03bd45b4f81f5ed5059?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OWKGL-11qpyj2jQZaFm1AOkK2EKwUhaP0FB8agtnyzY-ZMQVzgnJXSzQ5IOVbs3KMCVMZiT5XDe5WCuCOsdAGK1xua7YXOQi0w-8o1gIKl8y4WtLh8X1y4YZOx6GRN0lKwdJbN32JLT1RHp4q6HACTq1FSZyHb06EvK0mPqf3lDuJPSItc9Rst1SE7b5NdRPovD2EFfnBFGVRAQBmNjhBIqDuXo-Yrbyl1j1IthU5~l4yWl-EYY7hwypgwIX1k~AKS7klFNoRAm8Q7b~d2dpE~YdfKsgUmr~nJiXRKX0-LrO33VmTFrmkjjKhC30PZVVbF91oGa8wZ8XafVjMfhVlQ__"
+                alt="" />
+            </figure>
+
+            <!-- Second Image -->
+            <figure class="basis-[255px] rounded-lg overflow-hidden h-[550px]">
+              <img
+                class="h-full object-cover"
+                src="https://s3-alpha-sig.figma.com/img/c0bd/caea/ac5566ca46940eedc7ec3097df355689?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=cca0jr8Vx2kFI8MZ7LJfGWvD6Md2hOvv0TsktnyXlQe9AyQtoyBICuQsx~UmfDp4Th6eNCo8UCQtckrQVzlR4Vri~Bi~TD-baiW8Q-HnqqDHNfqWAtwj-gw5jhU-E4Y3HS0hFx8J2-e~j~LJCGGWpXq4lAIKbLJ-wu6nX-uC4T76-YGETZYjG6YDRJxG9CdZENbFVzkXs9TSL~G~8vIn62z8B1RmfpJCU~biZ0HkdOo6pk61mtFZPtsg-axJHsreFDKIYZSrtvBOyLztaVeg8aBEAevvWi7OTnf7wVDsU-EUZWTY6AXbilqe5wiTDeHydcFHBPOzGelIseI7IX6P3A__"
+                alt="" />
+            </figure>
+          </div>
+
+          <!-- Text Content -->
+          <div class="space-y-6">
+            <p class="font-reenie text-[#5D5FEF]">A Guide to Your Next Adventure</p>
+            <h1 class="text-5xl font-bold">Discover Your Dream Destination</h1>
+            <p class="text-[#6E6E6E]">
+              To find good deals on flights and accommodations, there are several tips and tricks that can be
+              followed. Firstly, it is important to know the typical prices for flights and hotels for the
+              desired destinations.
+            </p>
+
+            <!-- Progress Bars -->
+            <div class="text-[#6E6E6E] space-y-4">
+              <p>Review and Payment</p>
+              <div>
+                <span id="ProgressLabel" class="sr-only">Loading</span>
+                <span
+                  role="progressbar"
+                  aria-labelledby="ProgressLabel"
+                  aria-valuenow="75"
+                  class="block rounded-full">
+                  <span class="block h-1 rounded-full bg-[#434A54]" style="width: 75%"></span>
+                </span>
+              </div>
+            </div>
+            <div class="text-[#6E6E6E] space-y-4">
+              <p>Activities and Transportation</p>
+              <div>
+                <span id="ProgressLabel" class="sr-only">Loading</span>
+                <span
+                  role="progressbar"
+                  aria-labelledby="ProgressLabel"
+                  aria-valuenow="75"
+                  class="block rounded-full">
+                  <span class="block h-1 rounded-full bg-[#5D5FEF]" style="width: 55%"></span>
+                </span>
+              </div>
+            </div>
+            <div class="text-[#6E6E6E] space-y-4">
+              <p>Destination and Travel Dates</p>
+              <div>
+                <span id="ProgressLabel" class="sr-only">Loading</span>
+
+                <span
+                  role="progressbar"
+                  aria-labelledby="ProgressLabel"
+                  aria-valuenow="75"
+                  class="block rounded-full">
+                  <span class="block h-1 rounded-full bg-[#434A54]" style="width: 85%"></span>
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 mt-4 py-2.5 me-2 mb-2">
+              MORE INFO
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="md:my-12 pt-12 sm:pt-0 pb-24">
+        <div class="container mx-auto md:px-20 px-10">
+          <!-- Section Header -->
+          <header class="space-y-4">
+            <p class="font-reenie text-center text-[#5D5FEF]">Check All</p>
+            <h1 class="text-5xl font-bold text-center">Packages</h1>
+          </header>
+
+          <!-- Packages Grid -->
+          <div class="grid grid-cols-12 mt-12 gap-8">
+            <div
+              class="relative lg:col-span-4 col-span-12 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://s3-alpha-sig.figma.com/img/2244/4bf8/e863f4026cc13015e3adfb7a6389cfff?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gWSoIyENX~LbgaB6tHtjEsiafNx6vAV3~biyF9M3hhIE96whr9Jq~-i8yw7HZWcW1ui0Ku6upuaMvW094bpODOLMMNohWRO3zASiAIKhS3rhg0RphTAvlhzm9bpay3Z3pttlTEMZJjrT1FlC4qQfZ7ky6S95VJ~NoL9M4XAcAXQMlkHnjkr7YUsUoFfhIDeiw29W6zwivE4RVqT3rgRMnoWbTsKwnEXT1jJusxkZTOP2Jj7tw9t2M0mydfZ~UZ-4COFg7YjIJpL83IXCkCmO0u6lQ3hr5A90Qpf2o-5oU6Df1WoxGUYu8S0W8qXodL-Cx3GOHqhkR~VV0OIsPeNSrQ__"
+                  alt="" />
+              </a>
+
+              <div class="p-5">
+                <!-- Package Details -->
+                <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/timeyellow.svg" alt="" />
+                    <p class="text-sm font-light text-[#6E6E6E]">5 Days</p>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/messageyellow.svg" alt="" />
+                    <img src="/assets/mapyellow.svg" alt="" />
+                  </div>
+                </div>
+
+                <!-- Package Title and Location -->
+                <div class="py-4">
+                  <h1 class="font-bold text-[20px]">Malibu</h1>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#FFD205]"></i>
+                    <p class="text-sm text-[#6E6E6E]">California</p>
+                  </div>
+                </div>
+
+                <!-- Package Description -->
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  This tour is a breathtaking experience that took us along the stunning coastline of Southern
+                  California.
+                </p>
+                <hr class="text-slate-200" />
+
+                <!-- Pricing and CTA -->
+                <div class="flex justify-between py-4 items-center">
+                  <button class="text-sm text-white bg-[#FFD205] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-left">From</p>
+                    <h2 class="font-bold text-lg lg:text-[25px]">
+                      $ 500
+                      <!-- <del class="text-sm text-[#6E6E6E]">$ 134</del> -->
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative lg:col-span-4 col-span-12 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://s3-alpha-sig.figma.com/img/7d0a/69a8/348bd5bc326fdee8fc9503944ee9a782?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=GDbaiU5N0X5~ZejifWFdT5SYce5Yn0LBvMVqgY9hm1ZxNXZ0tBQmaoLQWXaQXo~JxtHFBS5HT1LgZkSqda~5YNWWUfNkevsiN3Arf68c~3ZuPUmpXCdobfUsIZK7Rw2aDxfzvf9nAiA8ispIEapDieLBjGUMcAjhX1uKb~phXIDRi0Fc8hHUIqUqyt2L3zR-mYodeuyp~k2tUA7bxy4lP6l0sKHl~M64SSiufKsWFa8mFRxf5qHHjrKusecmHFpDUOOKo4~dAb4iI8msgfSx6PGfG7pnDCv98SKpj0QRJvphXi2fCjBpfjs5rtT6sk1lzPRKmEDdS~fJmHClc6fKzw__"
+                  alt="" />
+              </a>
+              <!-- Card Description 2 -->
+              <div class="p-5">
+                <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/time.svg" alt="" />
+                    <p class="text-sm font-light text-[#6E6E6E]">5 Days</p>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/message.svg" alt="" />
+                    <img src="/assets/map.svg" alt="" />
+                  </div>
+                </div>
+                <div class="py-4">
+                  <h1 class="font-bold text-[20px]">San Francisco</h1>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#5D5FEF]"></i>
+                    <p class="text-sm text-[#6E6E6E]">California</p>
+                  </div>
+                </div>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  With convenient transportation and a small group size, you'll have the ultimate personalized
+                  tour experience.
+                </p>
+                <hr class="text-slate-200" />
+                <div class="flex justify-between py-4 items-center">
+                  <button class="text-sm text-white bg-[#5D5FEF] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-left">From</p>
+                    <h2 class="font-bold text-lg lg:text-[25px]">
+                      $ 480
+                      <del class="text-sm text-[#6E6E6E]">$ 540</del>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute top-4 right-4 text-white py-1 text-sm px-4 rounded-full bg-[#5D5FEF]">
+                <!-- <i class="fa-solid fa-clock"></i> -->
+                <span class="uppercase">Sale</span>
+              </div>
+            </div>
+            <div
+              class="relative lg:col-span-4 col-span-12 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://s3-alpha-sig.figma.com/img/604a/e8b7/bdeb76439435bcdd5226f9f7e62e314f?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Esh7PSpnIV8x2-s2JCw5Oqdj6oMrZauGKxp5T1cmwy-F0nmxSaVHHFTYoOd0Spvw9sOjluKKvoRxLbCnizIRaCxzIlUdM2rn6m2fAOgaExR5L4fZY9R-Mrkjm9bx~NzLUtDuuz5Pl2gmgZPndFYhVKAq77RkTMcaJnRUBUQjmm0WVyJFVjlRXWedHUJERz7rZrDv7XwszCbgg4oEDttEtHOxZdev7vieWmxRHhSJb11nvZLaTm~nmFlk~RxWaD3i0kk6s88pJr79Eq2hAS9Gyreqj3HgmX7DU1OI3QSqBroWCL0BCpCe6SynpjbCPOu1i5wxBwYlq6QfD23sKc4K4Q__"
+                  alt="" />
+              </a>
+              <!-- Card Description 2 -->
+              <div class="p-5">
+                <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/time.svg" alt="" />
+                    <p class="text-sm font-light text-[#6E6E6E]">10 Days</p>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/message.svg" alt="" />
+                    <img src="/assets/map.svg" alt="" />
+                  </div>
+                </div>
+                <div class="py-4">
+                  <h1 class="font-bold text-[20px]">Santa Monica</h1>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#BA71DA]"></i>
+                    <p class="text-sm text-[#6E6E6E]">California</p>
+                  </div>
+                </div>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  This iconic landmark is home to an array of thrilling good attractions and stunning fresh
+                  ocean views.
+                </p>
+                <hr class="text-slate-200" />
+                <div class="flex justify-between py-4 items-center">
+                  <button class="text-sm text-white bg-[#5D5FEF] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-left">From</p>
+                    <h2 class="font-bold text-lg lg:text-[25px]">
+                      $ 650
+                      <del class="text-sm text-[#6E6E6E]">$ 770</del>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute top-4 right-4 text-white py-1 text-sm px-4 rounded-full bg-[#5D5FEF]">
+                <!-- <i class="fa-solid fa-clock"></i> -->
+                <span class="uppercase">Sale</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bgFooter h-[474px] bg-center bg-cover relative">
+      <!-- Overlay for better readability -->
+      <div class="absolute bg-slate-700/70 w-full h-full"></div>
+
+      <!-- Footer Content -->
+      <div class="container mx-auto lg:px-20 px-10 flex items-center w-full h-full relative z-20">
+        <div class="flex md:flex-row flex-col md:gap-y-0 gap-y-4 md:gap-10 w-full">
+          <!-- Travel Slogan Section -->
+          <div class="flex-2">
+            <h1 class="font-bold lg:text-5xl md:text-3xl leading-tight text-white">
+              Travel beyond your imagination, with our Travel Agency!
+            </h1>
+          </div>
+
+          <!-- Address Section -->
+          <div class="flex-1 text-white space-y-6">
+            <p class="font-bold text-[20px]">Address</p>
+            <address>
+              <p>1080 Brickell Ave</p>
+              <p>Miami - Florida</p>
+              <p>U.S. of America</p>
+            </address>
+            <!-- Social Media Links -->
+            <div class="flex gap-4 items-center flex-wrap">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="flex-1 text-white space-y-4">
+            <p class="font-bold text-[20px]">Contact</p>
+            <a
+              href="mailto:info@travel.com"
+              class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 py-2.5 inline-block">
+              info@travel.com
+            </a>
+            <a href="tel:+01483593284" class="text-[25px] font-bold block">+ 01 483 593 284</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</html>

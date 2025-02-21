@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <title>Search Page</title>
+
+    <style type="text/tailwindcss">
+      @layer base {
+        :root {
+          --font-primary: 'Poppins', sans-serif;
+          --font-secondary: 'Reenie Beanie', sans-serif;
+          --color-primary: #4f46e5;
+          --color-secondary: #e11d48;
+        }
+
+        body {
+          font-family: var(--font-primary);
+        }
+      }
+      .divided-line {
+        @apply relative;
+      }
+
+      .divided-line::before {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-b-full right-[-2px] top-[5px];
+        content: '';
+      }
+
+      .divided-line::after {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-t-full right-[-2px] bottom-[5px];
+        content: '';
+      }
+      /* .image-card-1 {
+        @apply;
+      } */
+      .image-style {
+        @apply h-full w-full object-cover rounded-lg;
+      }
+
+      .font-reenie {
+        font-family: var(--font-secondary);
+      }
+      .image-container {
+        @apply w-full h-full flex items-center justify-center overflow-hidden rounded-lg;
+      }
+      .overlay-text {
+        @apply absolute text-white font-bold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-lg;
+      }
+      .card-container {
+        @apply shadow-md rounded-lg overflow-hidden;
+      }
+      .bg-overlay {
+        @apply absolute w-full h-full left-0 bg-black/30 top-0 right-0 bottom-0;
+        z-index: 10;
+      }
+      .bgImage2 {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/d933/0163/5c794991ca11b53e7475c5c7ee270a37?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=cWd3zgB6~dznlatbDRKwN1-YddzDXB94rDqO00d2H-raM2rzawdF2AXe6wuT05gd9N6rYbEGI-RLtiHt008ttgxXHv4cSEou0bpeMPgWvNhnsW8pdziHJkED82anArvs7sP3WLCLTlplH~SEf~yGVON1zvrP1xpqDf5VboSB7RIdVjeruz70k1BtlLA8GU1gh6lIRXJ1gZUDelIUNXjtif0T~buh8SGIyxJAURF5VCjLIGnb7XgR8zdAqOQVCJfOJKj83prc~8KxtS4I6O-FpHr~twIoc6H4DS9bdpv55PTuBX~2VQ2qlr~wrN8SlwdxwwG8D~IGrmCHTM6S-YcH~Q__')];
+      }
+      .bgFooter {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/367e/6b26/ffb7e3ab4140f39bcef544d448e859bd?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ju~RhnJn0oiK0CSNwiHTiMv5dEhQCclGLqHjDNAnNfjDT~XIhELr2i7o6ldcjmSNrj-NBOZZII~aalY1x~ZmAG1P8YFdUZ1CvUGrEYasqgTbelOehRYLhA~MZHOxhpHbVdFLgtILqaZWmXYf-SF4Yuj93DqFrPwJsTTlVMKW~B03TdJUL5BELdNWVK3fziKKlG31Wb9OCxTuTEL96PtCjI4-f-h4ErEvt~e689Fec50V7MBIrXjCbCcf2-E2WBMqWQJmDmzvSnh~~5mF0jQ5zzA9~SzhKLfFbbQ6uiXdwSQ8DGEyIHvh7A2oa5i953NG1Zdwg-tjfhzQRZ5qEE02kQ__')];
+      }
+      .bgImage3 {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/70f8/864d/0a2b5f60dab7032775b4bf6507374707?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=r8sAzxFBkT7cPEQfocwHSNLOYCD9Lp7Gkn-hnUoPVX2JrxCQM7b1WhIOw74pjyqgXQQ4hA7GGktLanmz5rlgat1b-2rgWehqcZDqxs~1in9rp7rnTRuokc89Ssq-owNoxW5jEPtSSATUGe0hVgU4yzHxPOX1dHxZ~5bPAXWrw5PbUkESs6KqrhpZ~5FK8Trr3595OQ-RBjbX5zGmrR8fFvCHN-ddq5GVu4eJTSL0EjJqcb6a63Yc51duI9wQlXonAW0GqHEWF566XWnrqPODUvhgplqEJ1sG66KUIQnbLSgmd0BdluLtYbu40mefzKlQkVUA-Ufq-GLjwLtGL4z~Hg__')];
+      }
+    </style>
+  </head>
+  <body>
+    <header class="bg-gray-100">
+      <nav class="h-20 container mx-auto lg:px-20 px-10 flex flex-wrap items-center justify-between">
+        <!-- Logo -->
+        <a href="#" class="md:max-w-[150px] max-w-[100px] transition-all duration-200 ease-in-out">
+          <img class="w-full" src="../assets/logo.svg" alt="Company Logo" />
+        </a>
+
+        <!-- Mobile Menu Toggle and Search Button -->
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <!-- Search Button -->
+          <button
+            type="button"
+            class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-4 py-2 text-center">
+            Search
+          </button>
+
+          <!-- Mobile Menu Toggle Button -->
+          <button
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            aria-controls="navbar-sticky"
+            aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <div
+          class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-sticky">
+          <ul class="lg:flex hidden items-center text-sm">
+            <li class="px-8 divided-line"><a href="#" class="hover:text-[#5D5FEF]">Home</a></li>
+            <li class="px-8 divided-line"><a href="#travel" class="hover:text-[#5D5FEF]">Travel</a></li>
+            <li class="px-8 divided-line"><a href="#pages" class="hover:text-[#5D5FEF]">Pages</a></li>
+            <li class="px-8 divided-line"><a href="#shop" class="hover:text-[#5D5FEF]">Shop</a></li>
+            <li class="px-8 divided-line"><a href="#blog" class="hover:text-[#5D5FEF]">Blog</a></li>
+            <li class="px-8"><a href="#contact-us" class="hover:text-[#5D5FEF]">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+      <!-- hero section -->
+      <section id="default-carousel" class="relative bg-[#F2F2F2] py-2 w-full px-10" data-carousel="slide">
+        <!-- Carousel wrapper -->
+        <div class="relative md:h-[340px] h-[150px] overflow-hidden rounded-lg">
+          <!-- Item 1 -->
+          <div class="duration-700 ease-in-out flex gap-x-2" data-carousel-item>
+            <div class="flex-1 h-full">
+              <img
+                src="https://s3-alpha-sig.figma.com/img/f970/61df/06638a851bd17f7057bcf6fa1bb04afc?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=L9s-M07NkWwWRuU68F7Gw9cjLGdE2PwpBh3s63fl2girmoPn73eQ9qxvm-y0uYEcLE42bTXuShORFv~8iolZIygMK8w1f7lCr86N6ytm5xOlgVt8VS0zGl6BfAI4ofanYmaTIBT47i5V1vOKlbPppOJdMvJQsZzj6XuY~0-Qb-vawcAGUx50jNcezUYBV4s8OMZ-voF8VGJc9tFCIGHFse7PfdIvduGswoQmT4FqBzPM4ghLN3iy7IqHBHukxELbZNIUSqbIcVl1oVr5QEbXY8ivGG49W1uzuUGHrYWEy6EUFY053x5xU~CvzdogMEKs4bXaaylOxRAD5q0SRaHQVw__"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://s3-alpha-sig.figma.com/img/b138/3f3d/049e7e32f8b6137191c3b673c975ca31?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Q1~0UHA~3x5Gty8iA30WCmXD8hMfz4R14DTX-MBQO3mNBBPug4B32LQDwa8Tp6SAAxzXM6A78VaWBVrNexeoZX3KT46N0VSMheUtch3IUwbRvDgQsXSLQkp-ZGuMuxsjuWK10MB4pjFOPi7BNVTWLIszGRZ5ZKXDDvXzCs9ccl7UD9tKwMusBLTPD1CUMgeMsSdGdutYHQEgFifMEH8pE~KLlty763ZsK7qCwC5Db4LyYt8BATyXQo3PXjmt1Z0UP0Dqjzip1LFBefgmFN0ucmVEKTwyo5pt2HKFywXZSDOpe-94w3Il1DtNE33q81NacbLpA60geWrDLsBqBmQ9xA__"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://s3-alpha-sig.figma.com/img/604a/e8b7/bdeb76439435bcdd5226f9f7e62e314f?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Esh7PSpnIV8x2-s2JCw5Oqdj6oMrZauGKxp5T1cmwy-F0nmxSaVHHFTYoOd0Spvw9sOjluKKvoRxLbCnizIRaCxzIlUdM2rn6m2fAOgaExR5L4fZY9R-Mrkjm9bx~NzLUtDuuz5Pl2gmgZPndFYhVKAq77RkTMcaJnRUBUQjmm0WVyJFVjlRXWedHUJERz7rZrDv7XwszCbgg4oEDttEtHOxZdev7vieWmxRHhSJb11nvZLaTm~nmFlk~RxWaD3i0kk6s88pJr79Eq2hAS9Gyreqj3HgmX7DU1OI3QSqBroWCL0BCpCe6SynpjbCPOu1i5wxBwYlq6QfD23sKc4K4Q__"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="duration-700 ease-in-out flex gap-x-2" data-carousel-item>
+            <div class="flex-1 h-full">
+              <img
+                src="https://www.travelandleisure.com/thmb/wsA6EXFuYkqtuJGLbQWw05-cwPs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/lake-como-MOSTBEAUTIFUL0921-cb08f3beff1041e4beefc67b5e956b23.jpg"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://pohcdn.com/guide/sites/default/files/styles/paragraph__text_with_image___twi_image/public/2024-09/Lake-Como.jpg"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://media.timeout.com/images/106180837/750/422/image.jpg"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div class="duration-700 ease-in-out flex gap-x-2" data-carousel-item>
+            <div class="flex-1 h-full">
+              <img
+                src="https://static.toiimg.com/photo/msid-87867224,width-96,height-65.cms"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://hips.hearstapps.com/hmg-prod/images/great-ocean-road-174028267-1494616481.jpg?crop=0.888888888888889xw:1xh;center,top&resize=768:*"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://www.usnews.com/object/image/0000016f-afc4-d65c-a7ef-ffe443990000/26-fiord-getty.jpg?update-time=1579201872803&size=responsive640"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+          </div>
+          <!-- Item 4 -->
+          <div class="duration-700 ease-in-out flex gap-x-2" data-carousel-item>
+            <div class="flex-1 h-full">
+              <img
+                src="https://www.travelandleisure.com/thmb/ip03-TS_bwMVg8elPNZ8pKaEOO8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mt-fuji-japan-MOSTBEAUTIFUL0921-413f7d67bb4f4539a336ebba14f74ed2.jpg"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://pixlr.com/blog/wp-content/uploads/2021/04/Pixlr-Blog-Header-4.jpg"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+            <div class="flex-1 h-full">
+              <img
+                src="https://realjourneytravels.com/wp-content/uploads/cherry-blossoms-pagoda-fuji.jpg"
+                class="h-full object-cover w-full"
+                alt="..." />
+            </div>
+          </div>
+        </div>
+        <!-- Slider indicators -->
+
+        <!-- Slider controls -->
+        <button
+          type="button"
+          class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-10 cursor-pointer group focus:outline-none"
+          data-carousel-prev>
+          <span class="inline-flex items-center justify-center">
+            <svg
+              class="w-4 h-4 text-white rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 1 1 5l4 4" />
+            </svg>
+            <span class="sr-only">Previous</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-10 cursor-pointer group focus:outline-none"
+          data-carousel-next>
+          <span class="inline-flex items-center justify-center">
+            <svg
+              class="w-4 h-4 text-white rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4" />
+            </svg>
+            <span class="sr-only">Next</span>
+          </span>
+        </button>
+      </section>
+      <section class="py-10 flex justify-center items-center bg-[#F2F2F2]">
+        <div class="container flex gap-4 flex-wrap justify-center mx-auto md:px-20 px-10">
+          <div class="flex-1">
+            <h1 class="text-3xl font-bold">Chiang Mai</h1>
+            <div class="flex gap-2">
+              <img src="../assets/location.svg" alt="" />
+              <p>Thailand</p>
+            </div>
+          </div>
+          <div class="flex-1 flex gap-8 flex-wrap">
+            <div class="flex gap-4 items-center">
+              <img class="md:size-10 size-5" src="../assets/duration.svg" alt="" />
+              <div>
+                <p class="md:text-sm text-xs">Durations</p>
+                <p class="md:text-sm text-xs font-bold">1 Week</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-center">
+              <img class="md:size-10 size-5" src="../assets/difficulty.svg" alt="" />
+              <div>
+                <p class="md:text-sm text-xs">Difficulty</p>
+                <p class="md:text-sm text-xs font-bold">Easy</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-center">
+              <img class="md:size-10 size-5" src="../assets/minage.svg" alt="" />
+              <div>
+                <p class="md:text-sm text-xs">Min Age</p>
+                <p class="md:text-sm text-xs font-bold">0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content Section -->
+      <section class="mt-12">
+        <!-- Adventure Section -->
+        <div class="grid container md:px-20 px-10 mx-auto grid-cols-12 gap-6">
+          <section class="lg:col-span-8 col-span-12 divide-y-[0.5px] divide-gray-300">
+            <article class="py-12 space-y-4">
+              <h3 class="text-2xl font-bold">Enjoy the Adventure</h3>
+              <p class="text-[#6E6E6E]">
+                Are you looking for an adventure of a lifetime? Join us on an unforgettable journey through
+                some of the world's most stunning landscapes and cultural destinations. Our expertly curated
+                tours take you to incredible destinations, from the rugged mountains of Patagonia to the
+                vibrant cities of Asia. Our itineraries are designed to immerse you in the local culture, with
+                opportunities to meet locals, try new foods, and learn about the history and traditions of
+                each destination. Our experienced guides will lead you through each destination, sharing their
+                knowledge and passion for travel. We offer a range of activities to suit every traveler, from
+                hiking and kayaking to cultural tours and culinary experiences.
+              </p>
+
+              <p class="text-[#6E6E6E]">
+                Our accommodations are carefully selected for comfort and convenience, with options to suit
+                every budget. Whether you prefer luxurious hotels or cozy homestays, we have something for
+                everyone. At every step of the journey, we prioritize sustainability and responsible tourism.
+                We work with local communities to ensure that our tours have a positive impact on the
+                environment and the people we meet along the way. Join us on a journey of discovery and
+                exploration, and discover the world's most incredible destinations with us.
+              </p>
+            </article>
+            <article class="py-12 space-y-4">
+              <h3 class="text-2xl font-bold">Included / Excluded</h3>
+              <p class="text-[#6E6E6E]">
+                To help you plan your trip, we have put together a list of what's included and what's not
+                included in your tour package. This will give you a clear understanding of what to expect and
+                help you make any necessary arrangements before your journey begins.
+              </p>
+              <div class="flex gap-16 mt-8 flex-wrap">
+                <ul class="text-[#6E6E6E] divide-y-[1px] space-y-4 text-left divide-white/30">
+                  <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-[#5D5FEF]"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Train tickets and Bus transportation</span>
+                  </li>
+                  <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-[#5D5FEF]"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Breakfast, lunch, and dinner.</span>
+                  </li>
+                  <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-[#5D5FEF]"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Accommodation at hotel</span>
+                  </li>
+                  <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-[#5D5FEF]"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Train tickets and Bus transportation</span>
+                  </li>
+                </ul>
+                <ul class="text-[#6E6E6E] divide-y-[1px] space-y-4 text-left divide-white/30">
+                  <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-[#5D5FEF]"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Professional tour guide</span>
+                  </li>
+                  <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-[#5D5FEF]"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Transfers between destinations</span>
+                  </li>
+                  <li class="flex items-center space-x-4.5 rtl:space-x-reverse">
+                    <img src="../assets/closs.svg" alt="" />
+                    <span>Entrance fees to museums</span>
+                  </li>
+                  <li class="space-x-4.5 flex items-center rtl:space-x-reverse">
+                    <img src="../assets/closs.svg" alt="" />
+                    <span>Custom itinerary</span>
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="py-12 space-y-4">
+              <h3 class="text-2xl font-bold">Tour Map</h3>
+              <p class="text-[#6E6E6E]">
+                This comprehensive map is designed to guide you through an exciting journey filled with
+                remarkable destinations and captivating experiences.
+              </p>
+
+              <div class="mt-10">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3777.199650168924!2d98.978389074948!3d18.788277760421857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30da3a6b1a5a4b8d%3A0x8e30f4df12349d32!2sChiang%20Mai%2C%20Thailand!5e0!3m2!1sen!2s!4v1695392616941!5m2!1sen!2s"
+                  class="w-full"
+                  height="450"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </article>
+
+            <article class="py-12 space-y-4">
+              <h3 class="text-2xl font-bold">Itinerary</h3>
+              <p class="text-[#6E6E6E]">
+                We have carefully planned out each day to give you the best possible experience. From
+                exploring historic landmarks to tasting delicious local cuisine, each day is packed with
+                adventure and excitement. Join us as we take you on a journey through some of the most
+                fascinating destinations in the world.
+              </p>
+
+              <div class="mt-6 divide-y-[0.5px] divide-gray-300">
+                <div class="w-full py-4 flex justify-between items-center">
+                  <p class="font-bold">
+                    <span class="text-[#5D5FEF]">DAY 1 -</span>
+                    Arrival and Orientation
+                  </p>
+                  <img src="../assets/arrowright.svg" alt="" />
+                </div>
+                <div class="w-full py-5 flex justify-between items-center">
+                  <p class="font-bold">
+                    <span class="text-[#5D5FEF]">DAY 2 -</span>
+                    City Tour
+                  </p>
+                  <img src="../assets/arrowright.svg" alt="" />
+                </div>
+                <div class="w-full py-5 flex justify-between items-center">
+                  <p class="font-bold">
+                    <span class="text-[#5D5FEF]">DAY 3 -</span>
+                    Cooking Class
+                  </p>
+                  <img src="../assets/arrowright.svg" alt="" />
+                </div>
+                <div class="w-full py-5 flex justify-between items-center">
+                  <p class="font-bold">
+                    <span class="text-[#5D5FEF]">DAY 4 -</span>
+                    Nature Hike
+                  </p>
+                  <img src="../assets/arrowright.svg" alt="" />
+                </div>
+                <div class="w-full py-5 flex justify-between items-center">
+                  <p class="font-bold">
+                    <span class="text-[#5D5FEF]">DAY 5 -</span>
+                    Free Day
+                  </p>
+                  <img src="../assets/arrowright.svg" alt="" />
+                </div>
+              </div>
+            </article>
+
+            <!-- Gallery -->
+            <article class="py-12 space-y-4">
+              <h3 class="text-2xl font-bold">Gallery</h3>
+              <p class="text-[#6E6E6E]">
+                Each image tells a unique story, inviting us into a world of emotion, beauty, and complexity.
+                Get ready to be moved, inspired, and challenged as we journey through this captivating
+                collection of images.
+              </p>
+              <!-- Image Gallery -->
+              <div class="grid grid-cols-12 gap-6">
+                <div class="md:col-span-4 col-span-12 rounded-md overflow-hidden">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/f970/61df/06638a851bd17f7057bcf6fa1bb04afc?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=L9s-M07NkWwWRuU68F7Gw9cjLGdE2PwpBh3s63fl2girmoPn73eQ9qxvm-y0uYEcLE42bTXuShORFv~8iolZIygMK8w1f7lCr86N6ytm5xOlgVt8VS0zGl6BfAI4ofanYmaTIBT47i5V1vOKlbPppOJdMvJQsZzj6XuY~0-Qb-vawcAGUx50jNcezUYBV4s8OMZ-voF8VGJc9tFCIGHFse7PfdIvduGswoQmT4FqBzPM4ghLN3iy7IqHBHukxELbZNIUSqbIcVl1oVr5QEbXY8ivGG49W1uzuUGHrYWEy6EUFY053x5xU~CvzdogMEKs4bXaaylOxRAD5q0SRaHQVw__"
+                    alt="" />
+                </div>
+                <div class="md:col-span-4 col-span-12 rounded-md overflow-hidden">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/b138/3f3d/049e7e32f8b6137191c3b673c975ca31?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Q1~0UHA~3x5Gty8iA30WCmXD8hMfz4R14DTX-MBQO3mNBBPug4B32LQDwa8Tp6SAAxzXM6A78VaWBVrNexeoZX3KT46N0VSMheUtch3IUwbRvDgQsXSLQkp-ZGuMuxsjuWK10MB4pjFOPi7BNVTWLIszGRZ5ZKXDDvXzCs9ccl7UD9tKwMusBLTPD1CUMgeMsSdGdutYHQEgFifMEH8pE~KLlty763ZsK7qCwC5Db4LyYt8BATyXQo3PXjmt1Z0UP0Dqjzip1LFBefgmFN0ucmVEKTwyo5pt2HKFywXZSDOpe-94w3Il1DtNE33q81NacbLpA60geWrDLsBqBmQ9xA__"
+                    alt="" />
+                </div>
+                <div class="md:col-span-4 col-span-12 rounded-md overflow-hidden">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/604a/e8b7/bdeb76439435bcdd5226f9f7e62e314f?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Esh7PSpnIV8x2-s2JCw5Oqdj6oMrZauGKxp5T1cmwy-F0nmxSaVHHFTYoOd0Spvw9sOjluKKvoRxLbCnizIRaCxzIlUdM2rn6m2fAOgaExR5L4fZY9R-Mrkjm9bx~NzLUtDuuz5Pl2gmgZPndFYhVKAq77RkTMcaJnRUBUQjmm0WVyJFVjlRXWedHUJERz7rZrDv7XwszCbgg4oEDttEtHOxZdev7vieWmxRHhSJb11nvZLaTm~nmFlk~RxWaD3i0kk6s88pJr79Eq2hAS9Gyreqj3HgmX7DU1OI3QSqBroWCL0BCpCe6SynpjbCPOu1i5wxBwYlq6QfD23sKc4K4Q__"
+                    alt="" />
+                </div>
+                <div class="md:col-span-4 col-span-12 rounded-md overflow-hidden">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/ea96/ebe0/0b0782d3f23c6e36f523af92ef454d3d?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=bOHWkl6CXlI2DOqiNvl6BbhPDp-UCBPwxuZyCV6KgpMcoe3yKua7sPzcL9cj9C08JRkIj1bcN9OpujpjRS5Db81BgALRrUp4Ohq4HiJWR4eMwcUuk3MrkHzvOou1FFMjkEAqXBtfNd27rXVwMzICwlkqq2HGhLu56UjH5GCyf~KLIfuoJQ59As8fumzKCwP2GG3RdWk2ehYJlxgkFIdVTwJGvGlK5AeqVu5BeCoCUJYSBlL5RgPKe-Y7mlMxAEFSagalbkmI0kx1rAEUhxZ5ePYWL2ye4V80WoRqcO4vp5TsL7MmjGOu~CXQOUvlPD1A6wq3USkSmVnjtv3FPY~4uQ__"
+                    alt="" />
+                </div>
+                <div class="md:col-span-4 col-span-12 rounded-md overflow-hidden">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/1709/18f8/419a04a5f62031f2cf57d97e629d90e3?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ltJyZLbSI0~3FSyw9nLONgrF4whtIWx8A-K7LYq36qKC-AeG5P2jCiD20jgtJjYqulmW2IQUDokaoSqv04A5EeAk2ScogTGLu0O3SnXX1-X6z9jiyGHdclirwnFNuELPqevVVpchZ9xOpGlyVw0XHoLik2vIlbrSWR4wNgBKKu4dqAcpnycW25XMHk5PRi1Rin6uxB1iocS92JHgbZxcmmIScFFqJ-SVktzuO-vo1dwDyYl0TzS3qdMzJefiI8gQs~7mSEIOUh-xysyt5H37CdDp0uFBIGJ99EkIPISR7AiT~687gAnv4TlAbGb8m4Uy6q-yEA5fJNbIN-GrYRSnSA__"
+                    alt="" />
+                </div>
+                <div class="md:col-span-4 col-span-12 rounded-md overflow-hidden">
+                  <img
+                    src="https://s3-alpha-sig.figma.com/img/7852/3736/bac13e3ba8e29ef1e33c6f5efc1fcf80?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=KIgWitw50q5lwEPVMMMuCKxMF02i4zqCLFiEyh9rVq1fvq6mhLnkS~L-BATmdeyiFXNYXnXa~wNVrJxKHmO7pmPn8n-34SRzZmWn00AX~~jnne07FfbDmBmDeYjj1M-JJ~ZahdNfOLKTRlUnDPuh8-HeJf5V7PmDREJ1SbWOCXZZQdX8SlsNybbdN6VlfLVjurHmQbJsp2WuIJdAn0f38DH11VvdvhdIxFErn8kR~Zmz5kTpRbd2UNHOE1RD6WlYwl1vTkBiOb37XNemb-yyRif8WSjonYnxK4X~TrEinU8ifKlcVoW5BlyKmIz6iiwHKR6awQHPo9zT89tCIyPrbg__"
+                    alt="" />
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <!-- Price Card Section -->
+          <aside class="lg:col-span-4 col-span-12 md:sticky top-0 lg:h-screen pt-4">
+            <section class="shadow-md border border-gray-200 rounded-lg bg-white p-6 space-y-8">
+              <!-- Price Details -->
+              <header class="flex justify-between items-center">
+                <div>
+                  <p class="text-[#6E6E6E]">Price</p>
+                  <p class="text-xl font-bold">From</p>
+                </div>
+                <div class="flex items-end gap-2">
+                  <p class="text-2xl font-bold">$</p>
+                  <span class="text-4xl font-bold">490</span>
+                </div>
+              </header>
+
+              <!-- Booking & Enquiry Options -->
+              <nav class="py-4 text-sm border-t border-b border-gray-300 flex justify-center">
+                <p class="pr-8 border-r border-gray-300">Booking Form</p>
+                <p class="pl-8">Enquiry Form</p>
+              </nav>
+
+              <!-- Booking Details -->
+              <section class="divide-y divide-gray-300">
+                <!-- Date Selection -->
+                <div class="pb-6">
+                  <h3 class="font-bold">Date</h3>
+                  <time class="text-[#6E6E6E]">03-13-2024</time>
+                </div>
+
+                <!-- Adults Selection -->
+                <div class="py-6 flex items-center justify-between">
+                  <div>
+                    <h3 class="font-bold">Adults</h3>
+                    <p class="text-[#6E6E6E] text-sm">Over 18 ( $490 )</p>
+                  </div>
+
+                  <div>
+                    <label for="Quantity" class="sr-only">Quantity</label>
+
+                    <div class="flex items-center gap-1">
+                      <button
+                        type="button"
+                        class="size-10 leading-10 text-gray-600 transition hover:opacity-75">
+                        &minus;
+                      </button>
+
+                      <input
+                        type="number"
+                        id="Quantity"
+                        value="1"
+                        class="h-10 w-10 font-bold text-2xl border-none text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" />
+
+                      <button
+                        type="button"
+                        class="size-10 leading-10 text-gray-600 transition hover:opacity-75">
+                        &plus;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Children Selection -->
+                <div class="py-6 flex items-center justify-between">
+                  <div>
+                    <h3 class="font-bold">Children</h3>
+                    <p class="text-[#6E6E6E] text-sm">Under 18 ( $ 200 )</p>
+                  </div>
+
+                  <div>
+                    <label for="Quantity" class="sr-only">Quantity</label>
+
+                    <div class="flex items-center gap-1">
+                      <button
+                        type="button"
+                        class="size-10 leading-10 text-gray-600 transition hover:opacity-75">
+                        &minus;
+                      </button>
+
+                      <input
+                        type="number"
+                        id="Quantity"
+                        value="0"
+                        class="h-10 w-10 font-bold text-2xl border-none text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" />
+
+                      <button
+                        type="button"
+                        class="size-10 leading-10 text-gray-600 transition hover:opacity-75">
+                        &plus;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Extra Services -->
+                <div class="py-6">
+                  <h3 class="font-bold">Extra Services</h3>
+                  <p class="text-sm text-[#6E6E6E]">Add extra services to your reservation</p>
+
+                  <fieldset class="pt-6">
+                    <legend class="sr-only">Extra Services</legend>
+                    <div class="space-y-2 text-sm">
+                      <!-- Health Insurance -->
+                      <label for="health-insurance" class="flex cursor-pointer items-start gap-4">
+                        <div class="flex items-center">
+                          <input
+                            type="checkbox"
+                            class="size-4 rounded-sm border-gray-300"
+                            id="health-insurance" />
+                        </div>
+                        <div>
+                          <p class="text-[#6E6E6E]">Health Insurance ( $220 )</p>
+                        </div>
+                      </label>
+
+                      <!-- Medical Insurance -->
+                      <label for="medical-insurance" class="flex cursor-pointer items-start gap-4">
+                        <div class="flex items-center">
+                          <input
+                            type="checkbox"
+                            class="size-4 rounded-sm border-gray-300"
+                            id="medical-insurance" />
+                        </div>
+                        <div>
+                          <p class="text-[#6E6E6E]">Medical Insurance ( $45 )</p>
+                        </div>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </section>
+
+              <!-- Booking Button -->
+              <button class="p-2 text-white rounded-lg text-sm font-bold w-full bg-[#5D5FEF]">
+                BOOK NOW FOR $490
+              </button>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Packages Section -->
+      <section class="md:my-12 pt-12 sm:pt-0">
+        <div class="container mx-auto md:px-20 px-10">
+          <!-- Section Heading -->
+          <header class="space-y-4 text-center">
+            <p class="font-reenie text-[#5D5FEF]">Check All</p>
+            <h1 class="text-5xl font-bold">Packages</h1>
+          </header>
+
+          <!-- Packages Grid -->
+          <div class="grid grid-cols-12 mt-12 gap-8">
+            <!-- Package Card 1 -->
+            <article
+              class="relative lg:col-span-4 col-span-12 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://s3-alpha-sig.figma.com/img/2244/4bf8/e863f4026cc13015e3adfb7a6389cfff?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gWSoIyENX~LbgaB6tHtjEsiafNx6vAV3~biyF9M3hhIE96whr9Jq~-i8yw7HZWcW1ui0Ku6upuaMvW094bpODOLMMNohWRO3zASiAIKhS3rhg0RphTAvlhzm9bpay3Z3pttlTEMZJjrT1FlC4qQfZ7ky6S95VJ~NoL9M4XAcAXQMlkHnjkr7YUsUoFfhIDeiw29W6zwivE4RVqT3rgRMnoWbTsKwnEXT1jJusxkZTOP2Jj7tw9t2M0mydfZ~UZ-4COFg7YjIJpL83IXCkCmO0u6lQ3hr5A90Qpf2o-5oU6Df1WoxGUYu8S0W8qXodL-Cx3GOHqhkR~VV0OIsPeNSrQ__"
+                  alt="Athenes, Greece" />
+              </a>
+              <div class="p-5">
+                <header class="py-4">
+                  <h2 class="font-bold text-[20px]">Athenes</h2>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#BA71DA]"></i>
+                    <p class="text-sm text-[#6E6E6E]">Greece</p>
+                  </div>
+                </header>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  Immerse yourself in the history and culture of this ancient city as you explore the stunning
+                  Acropolis.
+                </p>
+                <hr class="text-slate-200" />
+                <footer class="flex justify-between flex-row-reverse py-4 items-center">
+                  <button class="text-sm text-white bg-[#BA71DA] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-left">From</p>
+                    <strong class="font-bold text-lg lg:text-[25px]">$ 677</strong>
+                  </div>
+                </footer>
+              </div>
+              <div class="absolute top-4 right-4 text-white py-1 text-sm px-4 rounded-full bg-[#434A54]">
+                <i class="fa-solid fa-clock"></i>
+                <span>10 Days</span>
+              </div>
+            </article>
+
+            <!-- Package Card 2 -->
+            <article
+              class="relative lg:col-span-4 col-span-12 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://s3-alpha-sig.figma.com/img/7d0a/69a8/348bd5bc326fdee8fc9503944ee9a782?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=GDbaiU5N0X5~ZejifWFdT5SYce5Yn0LBvMVqgY9hm1ZxNXZ0tBQmaoLQWXaQXo~JxtHFBS5HT1LgZkSqda~5YNWWUfNkevsiN3Arf68c~3ZuPUmpXCdobfUsIZK7Rw2aDxfzvf9nAiA8ispIEapDieLBjGUMcAjhX1uKb~phXIDRi0Fc8hHUIqUqyt2L3zR-mYodeuyp~k2tUA7bxy4lP6l0sKHl~M64SSiufKsWFa8mFRxf5qHHjrKusecmHFpDUOOKo4~dAb4iI8msgfSx6PGfG7pnDCv98SKpj0QRJvphXi2fCjBpfjs5rtT6sk1lzPRKmEDdS~fJmHClc6fKzw__"
+                  alt="Azure Coast, France" />
+              </a>
+              <div class="p-5">
+                <header class="py-4">
+                  <h2 class="font-bold text-[20px]">Azure Coast</h2>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#14B9D5]"></i>
+                    <p class="text-sm text-[#6E6E6E]">France</p>
+                  </div>
+                </header>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  Escape to the azure coast and discover a world of breathtaking beauty and tranquility of
+                  coastline.
+                </p>
+                <hr class="text-slate-200" />
+                <footer class="flex justify-between flex-row-reverse py-4 items-center">
+                  <button class="text-sm text-white bg-[#14B9D5] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-left">From</p>
+                    <strong class="font-bold text-lg lg:text-[25px]">$ 400</strong>
+                  </div>
+                </footer>
+              </div>
+              <div class="absolute top-4 right-4 text-white py-1 text-sm px-4 rounded-full bg-[#434A54]">
+                <i class="fa-solid fa-clock"></i>
+                <span>15 Days</span>
+              </div>
+            </article>
+
+            <!-- Package Card 3 -->
+            <article
+              class="relative lg:col-span-4 col-span-12 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://s3-alpha-sig.figma.com/img/604a/e8b7/bdeb76439435bcdd5226f9f7e62e314f?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Esh7PSpnIV8x2-s2JCw5Oqdj6oMrZauGKxp5T1cmwy-F0nmxSaVHHFTYoOd0Spvw9sOjluKKvoRxLbCnizIRaCxzIlUdM2rn6m2fAOgaExR5L4fZY9R-Mrkjm9bx~NzLUtDuuz5Pl2gmgZPndFYhVKAq77RkTMcaJnRUBUQjmm0WVyJFVjlRXWedHUJERz7rZrDv7XwszCbgg4oEDttEtHOxZdev7vieWmxRHhSJb11nvZLaTm~nmFlk~RxWaD3i0kk6s88pJr79Eq2hAS9Gyreqj3HgmX7DU1OI3QSqBroWCL0BCpCe6SynpjbCPOu1i5wxBwYlq6QfD23sKc4K4Q__"
+                  alt="Athenes, Greece" />
+              </a>
+              <div class="p-5">
+                <header class="py-4">
+                  <h2 class="font-bold text-[20px]">Bangkok</h2>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#BA71DA]"></i>
+                    <p class="text-sm text-[#6E6E6E]">Thailand</p>
+                  </div>
+                </header>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  Marvelous culinary and cultural trip to the Thai capital with its wonderful monuments and
+                  Buddha statues.
+                </p>
+                <hr class="text-slate-200" />
+                <footer class="flex justify-between flex-row-reverse py-4 items-center">
+                  <button class="text-sm text-white bg-[#BA71DA] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-left">From</p>
+                    <strong class="font-bold text-lg lg:text-[25px]">$ 1000</strong>
+                    <!-- <del class="text-sm text-[#6E6E6E]">$ 134</del> -->
+                  </div>
+                </footer>
+              </div>
+              <div class="absolute top-4 right-4 text-white py-1 text-sm px-4 rounded-full bg-[#434A54]">
+                <i class="fa-solid fa-clock"></i>
+                <span>10 Days</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bgFooter h-[474px] bg-center bg-cover relative">
+      <!-- Overlay for better readability -->
+      <div class="absolute bg-slate-700/70 w-full h-full"></div>
+
+      <!-- Footer Content -->
+      <div class="container mx-auto lg:px-20 px-10 flex items-center w-full h-full relative z-20">
+        <div class="flex md:flex-row flex-col md:gap-y-0 gap-y-4 md:gap-10 w-full">
+          <!-- Travel Slogan Section -->
+          <div class="flex-2">
+            <h1 class="font-bold lg:text-5xl md:text-3xl leading-tight text-white">
+              Travel beyond your imagination, with our Travel Agency!
+            </h1>
+          </div>
+
+          <!-- Address Section -->
+          <div class="flex-1 text-white space-y-6">
+            <p class="font-bold text-[20px]">Address</p>
+            <address>
+              <p>1080 Brickell Ave</p>
+              <p>Miami - Florida</p>
+              <p>U.S. of America</p>
+            </address>
+            <!-- Social Media Links -->
+            <div class="flex gap-4 items-center flex-wrap">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="flex-1 text-white space-y-4">
+            <p class="font-bold text-[20px]">Contact</p>
+            <a
+              href="mailto:info@travel.com"
+              class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 py-2.5 inline-block">
+              info@travel.com
+            </a>
+            <a href="tel:+01483593284" class="text-[25px] font-bold block">+ 01 483 593 284</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</html>

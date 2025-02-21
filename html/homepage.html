@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <title>Love Travel</title>
+
+    <style type="text/tailwindcss">
+      @layer base {
+        :root {
+          --font-primary: 'Poppins', sans-serif;
+          --font-secondary: 'Reenie Beanie', sans-serif;
+          --color-primary: #4f46e5;
+          --color-secondary: #e11d48;
+        }
+
+        body {
+          font-family: var(--font-primary);
+        }
+      }
+
+      .divided-line {
+        @apply relative;
+      }
+
+      .divided-line::before {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-b-full right-[-2px] top-[5px];
+        content: '';
+      }
+
+      .divided-line::after {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-t-full right-[-2px] bottom-[5px];
+        content: '';
+      }
+      /* .image-card-1 {
+        @apply;
+      } */
+      .image-style {
+        @apply h-full w-full object-cover rounded-lg;
+      }
+
+      .font-reenie {
+        font-family: var(--font-secondary);
+      }
+      .image-container {
+        @apply w-full h-full flex items-center justify-center overflow-hidden rounded-lg;
+      }
+      .overlay-text {
+        @apply absolute text-white font-bold top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-lg;
+      }
+      .card-container {
+        @apply shadow-md rounded-lg overflow-hidden;
+      }
+      .bg-overlay {
+        @apply absolute w-full h-full left-0 bg-black/30 top-0 right-0 bottom-0;
+        z-index: 10;
+      }
+      .bgImage2 {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/d933/0163/5c794991ca11b53e7475c5c7ee270a37?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=cWd3zgB6~dznlatbDRKwN1-YddzDXB94rDqO00d2H-raM2rzawdF2AXe6wuT05gd9N6rYbEGI-RLtiHt008ttgxXHv4cSEou0bpeMPgWvNhnsW8pdziHJkED82anArvs7sP3WLCLTlplH~SEf~yGVON1zvrP1xpqDf5VboSB7RIdVjeruz70k1BtlLA8GU1gh6lIRXJ1gZUDelIUNXjtif0T~buh8SGIyxJAURF5VCjLIGnb7XgR8zdAqOQVCJfOJKj83prc~8KxtS4I6O-FpHr~twIoc6H4DS9bdpv55PTuBX~2VQ2qlr~wrN8SlwdxwwG8D~IGrmCHTM6S-YcH~Q__')];
+      }
+      .bgFooter {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/367e/6b26/ffb7e3ab4140f39bcef544d448e859bd?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ju~RhnJn0oiK0CSNwiHTiMv5dEhQCclGLqHjDNAnNfjDT~XIhELr2i7o6ldcjmSNrj-NBOZZII~aalY1x~ZmAG1P8YFdUZ1CvUGrEYasqgTbelOehRYLhA~MZHOxhpHbVdFLgtILqaZWmXYf-SF4Yuj93DqFrPwJsTTlVMKW~B03TdJUL5BELdNWVK3fziKKlG31Wb9OCxTuTEL96PtCjI4-f-h4ErEvt~e689Fec50V7MBIrXjCbCcf2-E2WBMqWQJmDmzvSnh~~5mF0jQ5zzA9~SzhKLfFbbQ6uiXdwSQ8DGEyIHvh7A2oa5i953NG1Zdwg-tjfhzQRZ5qEE02kQ__')];
+      }
+      .bgImage3 {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/70f8/864d/0a2b5f60dab7032775b4bf6507374707?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=r8sAzxFBkT7cPEQfocwHSNLOYCD9Lp7Gkn-hnUoPVX2JrxCQM7b1WhIOw74pjyqgXQQ4hA7GGktLanmz5rlgat1b-2rgWehqcZDqxs~1in9rp7rnTRuokc89Ssq-owNoxW5jEPtSSATUGe0hVgU4yzHxPOX1dHxZ~5bPAXWrw5PbUkESs6KqrhpZ~5FK8Trr3595OQ-RBjbX5zGmrR8fFvCHN-ddq5GVu4eJTSL0EjJqcb6a63Yc51duI9wQlXonAW0GqHEWF566XWnrqPODUvhgplqEJ1sG66KUIQnbLSgmd0BdluLtYbu40mefzKlQkVUA-Ufq-GLjwLtGL4z~Hg__')];
+      }
+    </style>
+  </head>
+  <body class="overflow-x-hidden">
+    <header class="bg-gray-100">
+      <nav
+        class="h-20 container mx-auto lg:px-20 transition-all duration-all ease-in-out px-10 justify-between flex flex-wrap items-center">
+        <!-- Logo -->
+        <a class="md:max-w-[150px] max-w-[100px] transition-all duration-all ease-in-out">
+          <img class="w-full" src="../assets/logo.svg" alt="logo" />
+        </a>
+        <!-- Right Section -->
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button
+            type="button"
+            class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-4 py-2 text-center">
+            Search
+          </button>
+          <button
+            data-collapse-toggle="navbar-sticky"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-sticky"
+            aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+        <!-- Navigation Links -->
+        <div
+          class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-sticky">
+          <ul class="lg:flex hidden items-center text-sm">
+            <li class="px-8 divided-line">
+              <a href="#">Home</a>
+            </li>
+            <li class="px-8 divided-line"><a href="#travel">Travel</a></li>
+            <li class="px-8 divided-line"><a href="#pages">Pages</a></li>
+            <li class="px-8 divided-line"><a href="#shop">Shop</a></li>
+            <li class="px-8 divided-line"><a href="#blog">Blog</a></li>
+            <li class="px-8"><a href="#contact-us">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="bgImg h-[90vh] bg-gray-100 bg-cover flex flex-col">
+        <!-- Container for the content with padding and margin -->
+        <div class="container lg:px-20 p-10 mt-10 mx-auto">
+          <!-- Subtitle for the section -->
+          <span class="uppercase font-light text-gray-500 text-base">love travel theme</span>
+
+          <!-- Main heading of the section -->
+          <h1 class="md:text-[72px] text-[50px] font-bold leading-tight text-slate-900">
+            <span
+              class="relative z-10 before:absolute before:contents before:w-[95%] before:h-2 before:bg-yellow-400 md:before:bottom-6 before:bottom-4 before:-z-10">
+              Adventure
+            </span>
+            <br />
+            Experience
+            <br />
+            The Travel!
+          </h1>
+
+          <!-- Search section -->
+          <div
+            class="w-full mt-8 md:max-w-screen-lg flex flex-col lg:flex-row p-4 rounded-lg bg-white shadow-md border-[.5px] border-slate-300/50">
+            <!-- Grouping the search options in a flexible container -->
+            <div class="flex divide-slate-400/50 w-full flex-col sm:flex-row">
+              <!-- Search input section -->
+              <div
+                class="flex sm:border-r border-b sm:border-b-0 px-4 py-6 lg:py-0 w-full pr-10 gap-4 items-center">
+                <i class="fa-solid fa-magnifying-glass text-[#14B9D5] text-2xl"></i>
+                <div class="text-sm">
+                  <p class="font-bold">Search</p>
+                  <p class="text-gray-500 pt-1">Insert Keyword</p>
+                </div>
+              </div>
+
+              <!-- Destination selection section -->
+              <div
+                class="flex sm:border-r border-b sm:border-b-0 px-4 py-6 lg:py-0 w-full gap-4 items-center">
+                <i class="fa-solid fa-location-dot text-[#14B9D5] text-2xl"></i>
+                <div class="text-sm">
+                  <p class="font-bold">Destination</p>
+                  <p class="text-gray-500 pt-1">All Destinations</p>
+                </div>
+              </div>
+
+              <!-- Typologies selection section -->
+              <div class="flex px-4 py-6 lg:py-0 w-full gap-4 items-center">
+                <i class="fa-solid fa-earth-americas text-[#14B9D5] text-2xl"></i>
+                <div class="text-sm">
+                  <p class="font-bold">Typologies</p>
+                  <p class="text-gray-500 pt-1">All Topologies</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search button -->
+            <button
+              class="px-10 font-bold mt-4 lg:mt-0 lg:max-w-60 w-full py-2 uppercase text-sm bg-[#5D5FEF] rounded-lg text-white">
+              Search
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-white relative mt-18">
+        <div class="container mx-auto lg:px-20 px-10 space-y-10">
+          <!-- Hero Section -->
+          <header class="max-w-[650px]">
+            <p class="font-reenie text-xl text-indigo-500">Dream Vacation Destination</p>
+            <h1 class="text-5xl mt-5 font-bold leading-tight">Plan the Trip of a Lifetime with Ease</h1>
+            <p class="mt-4 text-[#6E6E6E]">
+              Whether you're looking for a romantic getaway, a family-friendly adventure, or a solo journey to
+              explore the world, a travel agency can provide you with a custom-tailored itinerary that exceeds
+              your expectations.
+            </p>
+            <button class="text-sm text-white bg-[#5D5FEF] py-2 px-6 rounded-md mt-4">More Info</button>
+          </header>
+
+          <!-- Tour Options -->
+          <section class="py-6">
+            <div class="md:h-[100px] h-[350px] w-full flex md:flex-row flex-col gap-6">
+              <!-- City Walks Tour -->
+              <div
+                class="relative w-full h-full z-20 bg-[url('https://s3-alpha-sig.figma.com/img/ef5d/bcad/c41b58601ba21886ef171a65b038305c?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=RkNwZPtRzQCQlbW29rjLKALowmxXN3nHs44N0ris50x3O~KEIjF4zrFhOdthpErtwhg~~otlec19JIf3CxiWZNEFTqFLJA6UDDC3ze0fU~E-Fmt6scZAVodU8ILjJyj0mqr8LemSnwhyhVUoom9XOQELgOqodJHFfbPRKG2Ucbt33bTdrY~AXyUSPqoT7yA55B1o0cRfX37QMenSpvZzM4VDvMSAozGVP03b5MXziVha-vnT90DyYSyltpXtJOM2JAj23iMNQTcckchANKCRN2w2VVqhgRgkKnplpfMBhhHc0nzaUII31dEzgvgb-EcEPZyAB9ConY~jCVFr2guOgg__')] bg-cover bg-center rounded-md overflow-hidden">
+                <div class="absolute top-1/2 -translate-y-1/2 left-6">
+                  <img src="../assets/walk.svg" alt="" />
+                </div>
+                <h2 class="text-xl font-bold text-white flex items-center justify-center h-full">
+                  City Walks Tour
+                </h2>
+              </div>
+
+              <!-- Electric Bikes -->
+              <div
+                class="relative rounded-md z-20 overflow-hidden h-full w-full bg-[url('https://s3-alpha-sig.figma.com/img/51a1/287b/bf5b7a18d18bcf987011fef9b5fb2ad9?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=AU1zzPzw8ObnXi4o~Vac6qx6CQxDZtc28OveeDqsJnHBgxrMVuGvbc1PZzmWUhOGiOOU-JywsqvqiD40XOrNg9MDfRP1DeXzfsd9gulGL-noDrX2kVVO9pjGw79jvPtSK44U6qNJXzuxSV6dtKqByUQ7IJUnilNjm2eIEzMfpGjFZ3upD0657u76PUKbQYwOkzHeyfOIpVo6oCAib1tKZdOu-jKyu6bmSS4aQu1g~xzZtSM23y0LzpokRyAIGX8tVPMwe4uHNZ16V3vJTAzx99z6PXToITExz7lPze7ZYu4tWsc333-lEW33BhpL~9rS8n4CRa85Oh-Y2JhlMWA0Ag__')] bg-cover bg-center">
+                <div class="absolute top-1/2 -translate-y-1/2 left-6">
+                  <img src="../assets/bike.svg" alt="" />
+                </div>
+                <h2 class="text-xl font-bold text-white flex items-center justify-center h-full">
+                  Electric Bikes
+                </h2>
+              </div>
+
+              <!-- Skyscrapers View -->
+              <div
+                class="relative rounded-md z-20 overflow-hidden h-full w-full bg-[url('https://s3-alpha-sig.figma.com/img/2a1b/be2b/fb742edf8bd838ec3dd5341846bda746?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=drMxPtWrGDyWhqFBBAh6JryCmnezI5aRMVoh40GcOc8R9WVZF~RTq~QOQQS5FTEwUc2GhFnJ5RqsMvnUVtTUmRz8OFABVUpeldaXRoXEcxYdVh4yRAZPXph-7e1YT9di9XvF9zDWWih9YD4eHCtv7rveNqJTviKSIFkBVQAQyPGHI63dDzjce8wvXHaKXWbs~81MH2jfT~MM6usVN1-EqPItP8Cn~XF49BlEppQHEsQgerQ2fj04f1G7O1VL7CkVootzS-osXoCOZA9cwkwI4uAIU~3lEHWbJkvcqPI-sYEii0zkpdOhmVQMp7UfRwSpzt~fyS14sPD~WsLE7Bqn4Q__')] bg-cover bg-center">
+                <div class="absolute top-1/2 -translate-y-1/2 left-6">
+                  <img src="../assets/skyscrapper.svg" alt="" />
+                </div>
+                <h1 class="text-xl font-bold text-white flex items-center justify-center h-full">
+                  Skyscrapers View
+                </h1>
+              </div>
+            </div>
+          </section>
+
+          <!-- Destination Cards -->
+          <section class="flex gap-6 lg:flex-row flex-col items-center">
+            <!-- Chiang Mai Card -->
+            <article class="lg:max-w-sm max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2023/10/26135109/lijang.jpeg"
+                  alt="" />
+              </a>
+              <!-- Card Description 1 -->
+              <div class="p-5">
+                <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/time.svg" alt="" />
+                    <p class="text-sm font-light text-[#6E6E6E]">1 week</p>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/message.svg" alt="" />
+                    <img src="/assets/map.svg" alt="" />
+                  </div>
+                </div>
+                <div class="py-4">
+                  <h1 class="font-bold text-[20px]">Chiang Mai</h1>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-indigo-500"></i>
+                    <p class="text-sm text-[#6E6E6E]">Thailand</p>
+                  </div>
+                </div>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  Visit the temples and the Chiang Mai Night Bazaar, a huge huge market located on Chiang Klan
+                  Road.
+                </p>
+                <hr class="text-slate-200" />
+                <div class="flex justify-between py-4 items-center">
+                  <button class="text-sm text-white bg-[#5D5FEF] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-right">From</p>
+                    <h2 class="font-bold text-lg lg:text-[25px]">$ 490</h2>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Chao Phraya Card -->
+            <article
+              class="lg:max-w-sm relative max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2023/10/26135109/lijang.jpeg"
+                  alt="" />
+              </a>
+              <div
+                class="absolute top-4 right-4 text-white py-1 text-sm px-4 rounded-full bg-[#14B9D5] uppercase">
+                sale
+              </div>
+              <div class="p-5">
+                <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/time2.svg" alt="" />
+                    <p class="text-sm font-light text-[#6E6E6E]">1 week</p>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/message2.svg" alt="" />
+                    <img src="/assets/map2.svg" alt="" />
+                  </div>
+                </div>
+                <div class="py-4">
+                  <h1 class="font-bold text-[20px]">Chao Phraya</h1>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#14B9D5]"></i>
+                    <p class="text-sm text-[#6E6E6E]">Thailand</p>
+                  </div>
+                </div>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  Boat tour in the capital of Thailand, Bangkok, to see the beautiful palaces and monuments
+                  from the water.
+                </p>
+                <hr class="text-slate-200" />
+                <div class="flex justify-between py-4 items-center">
+                  <button class="text-sm text-white bg-[#14B9D5] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-right">From</p>
+                    <h2 class="font-bold text-lg lg:text-[25px]">
+                      $ 90
+                      <del class="text-sm text-[#6E6E6E]">$ 134</del>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Bangkok Card -->
+            <article
+              class="lg:max-w-sm relative max-w-lg bg-white border border-gray-200 rounded-lg shadow-sm">
+              <a href="#">
+                <img
+                  class="rounded-t-lg"
+                  src="https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2023/10/26135109/lijang.jpeg"
+                  alt="" />
+              </a>
+              <div
+                class="absolute top-4 right-4 text-white py-1 text-sm px-4 rounded-full bg-[#BA71DA] uppercase">
+                sale
+              </div>
+              <div class="p-5">
+                <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/time3.svg" alt="" />
+                    <p class="text-sm font-light text-[#6E6E6E]">1 week</p>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <img src="/assets/message3.svg" alt="" />
+                    <img src="/assets/map3.svg" alt="" />
+                  </div>
+                </div>
+                <div class="py-4">
+                  <h1 class="font-bold text-[20px]">Bangkok</h1>
+                  <div class="flex items-center gap-x-2 py-3">
+                    <i class="fa-solid fa-location-dot text-[#BA71DA]"></i>
+                    <p class="text-sm text-[#6E6E6E]">Thailand</p>
+                  </div>
+                </div>
+                <hr class="text-slate-200" />
+                <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                  Marvelous culinary and cultural trip to the Thai capital with its wonderful monuments and
+                  Buddha statues.
+                </p>
+                <hr class="text-slate-200" />
+                <div class="flex justify-between py-4 items-center">
+                  <button class="text-sm text-white bg-[#BA71DA] py-2 px-6 rounded-md mt-4">Details</button>
+                  <div>
+                    <p class="text-sm text-[#6E6E6E] text-right">From</p>
+                    <h2 class="font-bold text-lg lg:text-[25px]">
+                      $ 1000
+                      <del class="text-sm text-right text-[#6E6E6E]">$ 1024</del>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+        <div class="absolute top-28 z-0 right-0 max-w-screen-sm">
+          <img src="../assets/bg.svg" alt="" />
+        </div>
+      </section>
+
+      <section class="bg-gray-100 my-18">
+        <div class="container mx-auto lg:px-20 px-10 flex flex-col items-center lg:py-20 py-10">
+          <div class="text-center max-w-screen-sm mx-auto">
+            <p class="font-reenie text-xl text-indigo-500">Choose your Trip</p>
+            <h1 class="text-3xl mt-5 font-bold leading-tight">Start your Vacation Now</h1>
+            <p class="mt-4 text-[#6E6E6E]">
+              Looking for your dream vacation destination but don't know where to start? With the help of
+              experienced and knowledgeable travel agents, you can plan the trip of a lifetime with ease.
+            </p>
+          </div>
+
+          <!-- Search Filter Container -->
+          <div
+            class="w-full mt-8 md:max-w-screen-lg flex flex-col lg:flex-row p-4 rounded-lg bg-white shadow-md border-[.5px] border-slate-300/50">
+            <!-- Filter Options Section -->
+            <div class="flex divide-slate-400/50 w-full flex-col sm:flex-row">
+              <!-- Search Input -->
+              <div
+                class="flex sm:border-r border-b sm:border-b-0 px-4 py-6 lg:py-0 w-full pr-10 gap-4 items-center">
+                <i class="fa-solid fa-magnifying-glass text-[#F3A46B] text-2xl"></i>
+                <div class="text-sm">
+                  <p class="font-bold">Search</p>
+                  <p class="text-gray-500 pt-1">Insert Keyword</p>
+                </div>
+              </div>
+
+              <!-- Destination Selection -->
+              <div
+                class="flex sm:border-r border-b sm:border-b-0 px-4 py-6 lg:py-0 w-full gap-4 items-center">
+                <i class="fa-solid fa-location-dot text-[#F3A46B] text-2xl"></i>
+                <div class="text-sm">
+                  <p class="font-bold">Destination</p>
+                  <p class="text-gray-500 pt-1">All Destinations</p>
+                </div>
+              </div>
+
+              <!-- Typologies Selection -->
+              <div class="flex px-4 py-6 lg:py-0 w-full gap-4 items-center">
+                <i class="fa-solid fa-list-ul text-[#F3A46B] text-2xl"></i>
+                <div class="text-sm">
+                  <p class="font-bold">Typologies</p>
+                  <p class="text-gray-500 pt-1">All Topologies</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search Button -->
+            <button
+              class="px-10 font-bold mt-4 lg:mt-0 lg:max-w-60 w-full py-2 uppercase text-sm bg-[#F76570] rounded-lg text-white">
+              Search
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Next Adventure -->
+      <section class="my-18">
+        <div class="container mx-auto lg:px-20 px-10 flex flex-col lg:py-20 py-10">
+          <!-- Section Heading -->
+          <header class="max-w-screen-sm">
+            <p class="font-reenie text-xl text-indigo-500">Next Adventure</p>
+            <h1 class="text-5xl mt-5 font-bold leading-tight">Travel Destinations Available Worldwide</h1>
+            <p class="mt-4 text-[#6E6E6E]">
+              We have compiled a list of top destinations across the globe, scoured the world for the most
+              alluring and fascinating places to visit. From the beautiful beaches of the Caribbean to the
+              majestic mountains of Europe and the vibrant cities of Asia, our destination list has something
+              for everyone.
+            </p>
+          </header>
+
+          <!-- Destination Gallery -->
+          <section class="flex lg:flex-row flex-col gap-4 mt-10">
+            <div class="flex md:flex-row flex-col gap-4">
+              <!-- Greece -->
+              <figure class="aspect-[2/3] relative z-10 rounded-lg overflow-hidden">
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://s3-alpha-sig.figma.com/img/1709/18f8/419a04a5f62031f2cf57d97e629d90e3?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Mv9WnfgBSOCwJxWB8rDtH4Vwr-RgGaBtEVFx2a7XyHzknM2Ngpxx1486kBGYQ2gNe48U-k~TmM~mefC5pwQdIJRklYjG~GO9oSMuU2htHQzZ~2~Zejdlxiik2LtocdHGSkUdnBS0jM6QtcPPEgr4Ui0iNHi1CWq371zCluDcYGLelnHxuUVNG3~XFO7hctmF9sCWs1vV8HeRDyu4R~rVvO19vmJvp5OifyejeZi6ny9fgBzjb-xa4rs4oaucZSO6ogQ~Dk1Nbsi4VYE74JIjthxjBx1G9kJxn5FYap7D9duVFkGQ8~2TIV7cOk0TZgZzekvXO3-EUVhgjq~RhMIp7A__"
+                  alt="" />
+                <div class="bg-overlay z-10"></div>
+                <figcaption class="absolute w-full text-center bottom-10 text-white z-20">
+                  <p class="font-bold text-[20px]">Greece</p>
+                  <p class="text-sm">
+                    Experience the ancient history &
+                    <br />
+                    beaches
+                  </p>
+                </figcaption>
+              </figure>
+
+              <!-- Egypt -->
+              <figure class="aspect-[2/3] relative rounded-lg overflow-hidden">
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://s3-alpha-sig.figma.com/img/7852/3736/bac13e3ba8e29ef1e33c6f5efc1fcf80?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=kZjRpKJ~2xN6RHMjK09H2Uw-9Osk3js6s3w4XwEaIDUoXW~Y0H2hqSeFYuOVfYFONpzs2xVT9UBV1ojQlEvLecmEyOUyF2hEVzo1GVaFGeUp9zT-b2eKpF5eaFgeikd5TiGdFobplDysDAfbHV-U3fk99~KTN9QxkolcsRBhDaGK4F2UGaaFiNQUckHWh-xZzkROu9Wis2ICWx6zDwb2JnvZ05N6XmW~CIz~HKlYNiGK5QiIkja02bExnENnZMZ7LNtsaXkED~pL0Xr9sUjhQB~-Bt~4SLFcRf2X5CFxw~202IkExfDRNmJjLoHLehwT9C5cLEH3yLQA9rHJNakc6A__"
+                  alt="" />
+                <div class="bg-overlay z-10"></div>
+                <figcaption class="absolute w-full text-center bottom-10 text-white z-20">
+                  <p class="font-bold text-[20px]">Egypt</p>
+                  <p class="text-sm">
+                    Discover the land of pharaohs &
+                    <br />
+                    pyramids
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="flex md:flex-row flex-col gap-4">
+              <!-- Africa -->
+              <figure class="aspect-[2/3] relative rounded-lg overflow-hidden">
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://s3-alpha-sig.figma.com/img/70f8/864d/0a2b5f60dab7032775b4bf6507374707?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ErZWZWGccrzh21PzKjuWdQf1VMiZ3t3DXLVv7pYACeM7ksvJ5Ag7LE-9y04f6xRZeNTroWLRSjTNp0H8yBbkthf3Ai-nvrglYCs0wgm2KWs6uLBmx0GDzneh18pvNLK1mStCeOdo2ke6bOpfr3cLahv8XBwNRjdUTPVhN75L8yGkeTEEb1o7gdr8VlhSQdinaQMWgU~GpQx3Gm0ef50derVvLK1swwIK4wVaZjA2mrs19eOusYutTUK8YaVglZRY3NmrU36JCrJJkOuVAXnmSn5crH5GHqkSv6vl2HNOB9NIB7Vo6e8YGhUwUvR4K9oLq3qxleKotekcNpvPqRnjow__"
+                  alt="" />
+                <div class="bg-overlay"></div>
+                <figcaption class="absolute w-full text-center bottom-10 text-white z-20">
+                  <p class="font-bold text-[20px]">Africa</p>
+                  <p class="text-sm">
+                    Embark on a journey for your
+                    <br />
+                    lifetime
+                  </p>
+                </figcaption>
+              </figure>
+
+              <!-- France -->
+              <figure class="aspect-[2/3] rounded-lg relative overflow-hidden">
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://s3-alpha-sig.figma.com/img/8c31/7691/5f24202fa43a183070868a7554fadce8?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=QFFzgfUC81pV9egHehWXuymGEnFfocvBjgeO3Jv4ctffARoSL40CbPWA~EzHg2zrHdnwlK3KcytkHS-6ji4h9-2EaPMKH4lYfEy2uGaEBKqhAKoFH4zM8btbMZx-x7uCLi4cHxBb9Zb8RR8T5UtP-QacbBnEAdcONOrYnKhoeCLyAfP5VUGy5e3BIHpkaDhpMbyTRgQIfpcfsJQ72M2Zn6Hz8kjBCSiyAMl5EVaASTu7lWP3uhwQMYthCaBtD6AtZx3tSrswvJ4EXiNTPCIEfH9wqugDgWQBTP94OuQOI4fJXIVs8EQm2sclSnfusGG8KQzMnDgg2Ay~IedpkI1NIQ__"
+                  alt="" />
+                <div class="bg-overlay"></div>
+                <figcaption class="absolute w-full text-center bottom-10 text-white z-20">
+                  <p class="font-bold text-[20px]">France</p>
+                  <p class="text-sm">
+                    Indulge in the art, culture, and
+                    <br />
+                    cuisine
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- flex gap-8 max-w-screen-lg mx-auto -->
+      <section class="my-18">
+        <!-- background image -->
+        <div class="h-[80vh] relative">
+          <div class="bgImage2 py-10 bg-cover bg-center h-full">
+            <!-- Carousel Component -->
+            <div
+              class="container lg:px-20 px-10 justify-start items-center pt-10 md:pt-0 h-full mx-auto flex md:flex-row flex-col gap-10">
+              <div id="controls-carousel" class="relative w-full overflow-hidden" data-carousel="static">
+                <!-- Carousel wrapper -->
+
+                <div class="relative aspect-square w-full overflow-hidden rounded-lg">
+                  <!-- Item 1 -->
+                  <div class="hidden h-full w-full duration-700 ease-in-out" data-carousel-item>
+                    <img
+                      src="https://s3-alpha-sig.figma.com/img/f970/61df/06638a851bd17f7057bcf6fa1bb04afc?Expires=1740355200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=QFJB3Ud7HsvFvdQxq35i80dh5VbrkL6ZhG8qz7nfxHv35eB6GosjG13V1BeHJC3P-bM0qa7t2GelmjJ-7VNFk9jfceE7pXd5RV~4v6IqrpObsbA-LTpFJNKtRyGd13zEOrh-2U2MPxBmJNEpnRxtgVR4ChgaRde9Nu5g8u971ogNzROl~YdLuLp99KGgpgJCmE2vXZPu~6Ma~JtXk3qmIPVbpVchPn~kRQi98aZ419VGqC~yn2zEt1ltGqt69bjU6G9E5h6coJlhcJ5byW~2qDKByOrlOzlRY~0xt10~jC2Cx9tU9rfAGloLKfj8I4nQt-TLm-NkP1x6NiD2T7Elsg__"
+                      class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt="..." />
+                  </div>
+                  <!-- Item 2 -->
+                  <div class="hidden duration-700 h-full w-full ease-in-out" data-carousel-item="active">
+                    <img
+                      src="https://plus.unsplash.com/premium_photo-1667530621211-7924dc31a4a8?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt="..." />
+                  </div>
+                  <!-- Item 3 -->
+                  <div class="hidden duration-700 h-full w-full ease-in-out" data-carousel-item>
+                    <img
+                      src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?q=80&w=3059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt="..." />
+                  </div>
+                  <!-- Item 4 -->
+                  <div class="hidden duration-700 h-full w-full ease-in-out" data-carousel-item>
+                    <img
+                      src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt="..." />
+                  </div>
+                  <!-- Item 5 -->
+                  <div class="hidden duration-700 h-full w-full ease-in-out" data-carousel-item>
+                    <img
+                      src="https://images.unsplash.com/photo-1564401003800-3cd8ced29bbe?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt="..." />
+                  </div>
+                </div>
+
+                <!-- Slider controls -->
+                <button
+                  type="button"
+                  class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                  data-carousel-prev>
+                  <span
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg
+                      class="w-4 h-4 text-white rtl:rotate-180"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 1 1 5l4 4" />
+                    </svg>
+                    <span class="sr-only">Previous</span>
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                  data-carousel-next>
+                  <span
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg
+                      class="w-4 h-4 text-white rtl:rotate-180"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="sr-only">Next</span>
+                  </span>
+                </button>
+              </div>
+              <div class="max-w-lg w-full space-y-6 text-white z-50">
+                <p class="font-reenie">Adventure Travel</p>
+                <h2 class="lg:text-4xl font-bold">Embrace the Thrill of the Unknown</h2>
+                <p class="text-sm">
+                  Are you tired of the typical tourist destinations and looking to step out of your comfort
+                  zone? Adventure travel may be the perfect solution for you! Here are four reasons why you
+                  should book an adventure travel experience :
+                </p>
+
+                <ul class="divide-y-[1px] text-left divide-white/30">
+                  <li class="py-6 flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Connect with nature</span>
+                  </li>
+                  <li class="py-6 flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Experience other cultures</span>
+                  </li>
+                  <li class="py-6 flex items-center space-x-3 rtl:space-x-reverse">
+                    <svg
+                      class="shrink-0 w-3.5 h-3.5 text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 16 12">
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span>Create unforgettable memories</span>
+                  </li>
+                </ul>
+                <button
+                  type="button"
+                  class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2">
+                  All Services
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="absolute top-0 w-full h-full bg-gradient-to-l from-black/60"></div>
+        </div>
+      </section>
+
+      <section class="my-18">
+        <h1 class="text-center text-5xl font-bold pb-10">Travel Itineraries</h1>
+        <div class="container mx-auto lg:px-20">
+          <iframe
+            class="aspect-video w-full"
+            src="https://www.youtube.com/embed/j6GQjc3mFQk?si=rugbe-i3v5A39Do3"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+          <div class="flex gap-2 mt-10 snap-x snap-mandatory overflow-scroll">
+            <img src="/assets/blissful.png.svg" alt="" srcset="" />
+
+            <img src="/assets/biking.png.svg" alt="" srcset="" />
+
+            <img src="/assets/travelling.png.svg" alt="" srcset="" />
+
+            <img src="/assets/travelworld.png.svg" alt="" srcset="" />
+          </div>
+        </div>
+      </section>
+
+      <section class="my-18">
+        <div class="h-screen relative">
+          <div class="bg-overlay"></div>
+          <div class="bgImage3 bg-cover bg-center h-full flex justify-center items-center">
+            <div
+              class="container relative mx-auto z-10 px-20 gap-4 flex md:flex-row flex-col items-end justify-center">
+              <div class="w-full">
+                <h1 class="text-4xl font-bold text-white">Unforgettable Travel Experiences</h1>
+                <p class="text-white pt-6">
+                  Our customer's feedback is essential in building a great reputation and maintaining
+                  excellent service. By listening to our customer's needs, we can improve our offerings and
+                  provide an exceptional travel experience.
+                </p>
+                <div class="w-full mt-10">
+                  <div class="w-full p-6 rounded-lg shadow-sm bg-[#5D5FEF]">
+                    <p class="text-white">
+                      My husband and I have been using this travel agency for years and they have never
+                      disappointed us.
+                    </p>
+
+                    <div class="flex items-center gap-4 mt-8">
+                      <img
+                        class="w-10 h-10 rounded-full"
+                        src="https://st5.depositphotos.com/23188010/77469/i/450/depositphotos_774693160-stock-photo-cute-smiling-boy-orange-hair.jpg"
+                        alt="" />
+                      <div class="text-white">
+                        <h1 class="font-medium text-base">Jennifer and Mark</h1>
+                        <p class="text-sm text-white">San Francisco</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-full">
+                <div class="w-full">
+                  <div class="w-full p-6 rounded-lg shadow-sm bg-[#5D5FEF]">
+                    <p class="text-white">
+                      My husband and I have been using this travel agency for years and they have never
+                      disappointed us.
+                    </p>
+
+                    <div class="flex items-center gap-4 mt-8">
+                      <img
+                        class="w-10 h-10 rounded-full"
+                        src="https://static.vecteezy.com/system/resources/previews/030/727/682/non_2x/geek-boy-illustration-vector.jpg"
+                        alt="" />
+                      <div class="text-white">
+                        <h1 class="font-medium text-base">Jennifer and Mark</h1>
+                        <p class="text-sm text-white">San Francisco</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="my-18">
+        <div class="max-w-4xl text-center mx-auto space-y-4">
+          <p class="font-reenie text-[#5D5FEF]">Clear Price</p>
+          <h1 class="text-4xl font-bold">Affordable Travel Packages</h1>
+          <p>
+            We believe that everyone deserves to experience their dream vacation without breaking the bank.
+            That's why we offer a price section on our website that features a range of affordable travel
+          </p>
+        </div>
+        <div
+          class="container flex md:flex-row flex-col lg:items-center mx-auto gap-2 py-8 px-10 sm:py-12 lg:px-20 lg:py-16">
+          <div
+            class="flex-1 bg-[#F2F2F2] rounded-lg inline-flex items-center flex-col gap-y-6 justify-center py-14">
+            <h3 class="font-bold text-[20px]">Half Board</h3>
+            <div class="flex gap-2 items-end py-3">
+              <h1 class="font-bold text-5xl">$ 50</h1>
+              <span class="font-bold">/Day</span>
+            </div>
+            <div class="space-y-2 text-[#6E6E6E] font-light text-base">
+              <p>Transfers from Airport</p>
+              <p>Minimum 3 Star Hotel</p>
+              <p>Alcoholic beverages</p>
+              <p>Incl. Museum Tickets</p>
+              <p>Meals in Restaurants</p>
+            </div>
+            <button
+              type="button"
+              class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2">
+              All Services
+            </button>
+          </div>
+          <div class="flex-1">
+            <div
+              class="w-full bg-[#5D5FEF] text-white rounded-lg inline-flex items-center flex-col gap-y-6 justify-center py-20">
+              <h3 class="font-bold text-[20px]">All Inclusive</h3>
+              <div class="flex gap-2 items-end py-3">
+                <h1 class="font-bold text-5xl">$ 32</h1>
+                <span class="font-bold">/Day</span>
+              </div>
+              <div class="space-y-2 font-light text-[17px] leading-7">
+                <p>Meals in Restaurants</p>
+                <p>Alcoholic beverages</p>
+                <p>Minimum 3 Star Hotel</p>
+                <p>Transfers from Airport</p>
+                <p>Incl. Museum Tickets</p>
+              </div>
+              <button
+                type="button"
+                class="text-white uppercase bg-[#434A54] font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2">
+                View All
+              </button>
+            </div>
+          </div>
+          <div
+            class="flex-1 bg-[#434A54] text-white rounded-lg relative inline-flex items-center flex-col gap-y-6 justify-center py-14">
+            <h3 class="font-bold text-[20px]">Excursions Included</h3>
+            <div class="flex gap-2 items-end py-3">
+              <h1 class="font-bold text-5xl">$ 68</h1>
+              <span class="font-bold">/Day</span>
+            </div>
+            <div class="space-y-2">
+              <p>Minimum 3 Star Hotel</p>
+              <p>Meals in Restaurants</p>
+              <p>Incl. Museum Tickets</p>
+              <p>Meals in Restaurants</p>
+              <p>Alcoholic beverages</p>
+            </div>
+            <button
+              type="button"
+              class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2">
+              Button
+            </button>
+            <div class="absolute top-4 right-4 bg-[#5D5FEF] py-[2px] text-sm px-4 rounded-md">POPULAR</div>
+          </div>
+        </div>
+        <!-- <p class="text-center text-[#6E6E6E]">* All trips include medical insurance</p> -->
+      </section>
+
+      <section class="my-18">
+        <div class="container mx-auto lg:px-20 items-center gap-16 px-10 flex md:flex-row flex-col">
+          <div class="flex-1">
+            <p class="font-reenie">Wandering Souls</p>
+            <h1 class="text-5xl pt-6 font-bold">Discover Your Next Adventure</h1>
+            <p class="py-6 text-[#6E6E6E]">
+              Whether you're planning a romantic honeymoon or a family vacation, our price section has got you
+              covered. So, start browsing today and find the perfect vacation package at a price that won't
+              leave you feeling guilty.
+            </p>
+            <div class="text-[#6E6E6E] space-y-4">
+              <p>Organized Group Tour</p>
+              <div>
+                <span id="ProgressLabel" class="sr-only">Loading</span>
+                <span
+                  role="progressbar"
+                  aria-labelledby="ProgressLabel"
+                  aria-valuenow="75"
+                  class="block rounded-full bg-gray-200">
+                  <span class="block h-1 rounded-full bg-[#434A54]" style="width: 75%"></span>
+                </span>
+              </div>
+            </div>
+            <div class="text-[#6E6E6E] pt-10 space-y-4">
+              <p>Single Customized Trip</p>
+              <div>
+                <span id="ProgressLabel" class="sr-only">Loading</span>
+
+                <span
+                  role="progressbar"
+                  aria-labelledby="ProgressLabel"
+                  aria-valuenow="75"
+                  class="block rounded-full bg-gray-200">
+                  <span class="block h-1 rounded-full bg-[#434A54]" style="width: 75%"></span>
+                </span>
+              </div>
+              <button
+                type="button"
+                class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 mt-4 py-2.5 me-2 mb-2">
+                MORE INFO
+              </button>
+            </div>
+          </div>
+          <div
+            class="flex-1 relative lg:h-[440px] md:rounded-l-full overflow-hidden transition-all duration-150 ease-in-out inline-flex self-center">
+            <img
+              class="object-cover"
+              src="https://s3-alpha-sig.figma.com/img/025b/545e/82c9d151812d7710c2a941db25859190?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=LlJm~2detzf9ruixlYTUwJQZ84INO9LCNhK15vUM8A6XPlhXDTZ7Q7cx5woYrb-ytAR8yy4Utj4y7sDTYWzi~0dxvqiZLlwyiNspYAi-j-3ee-cp2RxoQL32FvIo~ibsyYPMVd4nT2DkGkhW-SlShPadZLjq2eB877-V1~wiDukbcJvvq3WMnByoHyxAG7E4TiyR0uiGI28ncJ3qvyR3Xl4021afDf2i0iaX7Tb1YROiir~fpYNXd4QHsTbczjq~AbSXRQfZVmNsHCwiStkk7E3slJZnZIBlyyMvQFXQ~HPxjraPZ59NzM1QctC8QzaqiSNPsuqvSHQlNe31rPWlFQ__"
+              alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section class="my-18">
+        <div class="container mx-auto lg:px-20 px-10">
+          <div class="flex md:flex-row flex-col w-full md:gap-x-6 gap-y-6">
+            <div class="basis-[600px] overflow-hidden">
+              <img
+                class="rounded-md"
+                src="https://s3-alpha-sig.figma.com/img/6387/648e/3bad226bac10bd866469cc3e530ba958?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=d7AXVCF8CC0DE0hI6lZD1DSjHji-Zfow4WMae9PoYuLHRCG0JbbcyDxEqaF6vbSTieOgoGeaNdBLESSvSzC7hrLrATrCMj-mQ99TfdC9jKnmS3GlNi6T4rF4plxQ-DlxCMiL7OKb1AFWLnDS-mGf0BoE5j~be5eLhzHLLtkvCV2Z8HX49SmMwhaq1MEY8JOtRzzGnIUjyAlC5Ea2cn2xEJ3H4PvDeIq0ZCDXXirZSUuuND4mYK2fUgqibGRCFxdLC-1T5qxjHB4RBNwm60g9Mk91FpNolUStLJAaPZvV3pd-iIpIYrnSBtL~iZlOUZPlSf2qzTvQhE5KRi-5~wyAww__"
+                alt="" />
+
+              <div class="mt-4 space-y-6">
+                <div class="py-[2px] px-3 rounded-md bg-[#434A54] inline-block text-sm text-white">
+                  April 7, 2023
+                </div>
+                <h3 class="text-[25px] font-bold">Plan the Perfect Vacation</h3>
+                <p class="text-[#6E6E6E]">
+                  Planning a vacation can be overwhelming, but this post offers a step-by-step guide to help
+                  readers create a comprehensive travel itinerary. From choosing a destination to booking
+                  accommodations and activities, readers will learn how to plan a stress-free and enjoyable
+                  trip.
+                </p>
+                <button
+                  type="button"
+                  class="text-white bg-[#5D5FEF] mt-4 font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2">
+                  Read More
+                </button>
+              </div>
+            </div>
+            <div class="basis-[600px] flex flex-col gap-y-6">
+              <div class="flex gap-x-4">
+                <div class="basis-[400px] md:basis-[340px] overflow-hidden">
+                  <img
+                    class="rounded-md"
+                    src="https://s3-alpha-sig.figma.com/img/9841/3b7f/41720bbcdae2e8c0148a3dd3344ed2e1?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=a3Y9ZnXa8TtchDfQwL6-yX82-IPnYPc9auMkhgl2vK4YMTtxmByeuMs49GYG7wrG5Y60PmW7ljseQcaT8E1NeQsspUjp7W-R4R8FKtl8bUuxYbXYbvnlOoXvyiXw25oTu78ezB9nLEni1w0pFophYOCdb~hDCpKXPn6eOLCgVDo1X2pTnByYz7sQBGvf7ggLIr10gkVa615eophX-gpb0-DYKK-PtaHJpmtNdUQKd28nqxzCXisjF60~5ZQ95F~mudLDEBR-y1mjY6XsFP7OfXwrjL9Ajw-ApEjapLA~bJN1gxujclcZnD621Oe76gqI7sFCyJoSOz~NXRzmpa6uTw__"
+                    alt="" />
+                </div>
+                <div class="w-full space-y-4">
+                  <div class="py-[2px] px-3 rounded-md bg-[#5D5FEF] inline-block text-sm text-white">
+                    April 7, 2023
+                  </div>
+                  <h4 class="text-[20px] font-bold">Discover the Hidden Gems</h4>
+                  <p class="text-sm text-[#6E6E6E]">
+                    Benefits of traveling alone, from the freedom to discover new places with new friends.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-x-4">
+                <div class="basis-[400px] md:basis-[340px] overflow-hidden">
+                  <img
+                    class="rounded-md"
+                    src="https://s3-alpha-sig.figma.com/img/e5c3/a533/98d593584f4ecf1d2eebd4c69b46b5b8?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=e12J6EJ~Joe7DN0a4xFDOhYAnJK7DuLA6kkzca5iMKJ1G9~pLns9RltpuZZi1OLs36f0kHNRXpgCJ1vWGSD-Xo1sVOiI4zInIgSNPRR6rB~tbaji2E-OWcEaqubc-3wK9TWnpMaAnw1E-i14aEqr0BRzD~IcIrFtGWiq1cQBMgmSRdA7xbAMuJmBmlznA~y4-KJh0gjRLNdp3XR4IkZuo8llxfl3y67Cyk-~HN3mYc78IKuEBrxincN53UdDRRIi2mFMplOfgDL9xK5Ht2RW3M1hqolWzKvU~5VDlgt7QnfG6QHVV~hgEJWu0vGgloEctGIK3N2x6LmAOi4iczFo4g__"
+                    alt="" />
+                </div>
+                <div class="w-full space-y-4">
+                  <div class="py-[2px] px-3 rounded-md bg-[#5D5FEF] inline-block text-sm text-white">
+                    April 7, 2023
+                  </div>
+                  <h4 class="text-[1em] font-bold">Must-See Landmarks</h4>
+                  <p class="text-sm text-[#6E6E6E]">
+                    Iconic landmarks that make Europe one of the world's most popular travel destinations.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-x-4">
+                <div class="basis-[400px] md:basis-[340px] overflow-hidden">
+                  <img
+                    class="rounded-md"
+                    src="https://s3-alpha-sig.figma.com/img/530b/6ce4/51326e4526ad91eb3802e3500683b456?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=A1he3bWVjTRIblEJzkAw9FnnOVAFKLvQaBdJMlwcqFeCVfjBNKO~SBkBja8KbHaNLh~Kc~cVl24epj~2FHCkukgHosip57JS5bnAmIgQ3KTzj6JUaluXhhr5XxkmmppAZem6S7wPCTKqWfQ8LgS0hb8qAxdBsMS2-9ks7keJ0qkvMcx3gwwHXTHq0OdxcVy1ZcOx-z8nao~2L2YyeKdNXuF3QJXGYrUpu8tHTKLYIXcCeqXilZsQGLV-sIJX2k3oCOMAb~uZjZawDUvQwVWSmjdgf4roimu60mPyfkT0wLk1CT8SDTTzT0nBbx6jcMYKG0swcj00MbNhktVwjla11g__"
+                    alt="" />
+                </div>
+                <div class="w-full space-y-4">
+                  <div class="py-[2px] px-3 rounded-md bg-[#5D5FEF] inline-block text-sm text-white">
+                    April 7, 2023
+                  </div>
+                  <h4 class="text-[20px] font-bold">Traveling on a Budget</h4>
+                  <p class="text-sm text-[#6E6E6E]">
+                    Practical advice for travelers who want to see the world without breaking the bank.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-x-4">
+                <div class="basis-[400px] md:basis-[340px] overflow-hidden">
+                  <img
+                    class="rounded-md"
+                    src="https://s3-alpha-sig.figma.com/img/422f/3172/baea20a9f77611d5fd71fb364c2855ba?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=cglD6~b6w~HPPVaqXcJwat4C9nZ5Hv-Sav3fHD0xo6jlYkGaOkw-h7F8iMONs633afkVKY1bmKWYRz-t30YRULZWbvxaH5gpzsWxImIpNryVGsgYs3H-2lEWD10te0IO1k0rdef-99K97qzdJFN6xZq-V-52HAsZrzeCuykYAxDQG-upsO3j2CTgVh71jEQGu2ixfmMHJV3aREwxW7nUtPVPcKfgV7V-XeVUwUvtmIfH3cDkjSAxOiXZMinSwFGMLFVtyh9MKl2eTxIP6pdqJmKOoD2RDudYKNDBoy~53OQzfCFJL~3gTqGGvgPljszSEuVxHIDvbZ6nf11ev4hLvg__"
+                    alt="" />
+                </div>
+                <div class="w-full space-y-4">
+                  <div class="py-[2px] px-3 rounded-md bg-[#5D5FEF] inline-block text-sm text-white">
+                    April 7, 2023
+                  </div>
+                  <h4 class="text-[20px] font-bold">Explore the Wonders</h4>
+                  <p class="text-sm text-[#6E6E6E]">
+                    Must-see destinations and experiences, including wildlife and cultural experiences.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bgFooter h-[474px] bg-center bg-cover relative">
+      <!-- Overlay for better readability -->
+      <div class="absolute bg-slate-700/70 w-full h-full"></div>
+
+      <!-- Footer Content -->
+      <div class="container mx-auto lg:px-20 px-10 flex items-center w-full h-full relative z-20">
+        <div class="flex md:flex-row flex-col md:gap-y-0 gap-y-4 md:gap-10 w-full">
+          <!-- Travel Slogan Section -->
+          <div class="flex-2">
+            <h1 class="font-bold lg:text-5xl md:text-3xl leading-tight text-white">
+              Travel beyond your imagination, with our Travel Agency!
+            </h1>
+          </div>
+
+          <!-- Address Section -->
+          <div class="flex-1 text-white space-y-6">
+            <p class="font-bold text-[20px]">Address</p>
+            <address>
+              <p>1080 Brickell Ave</p>
+              <p>Miami - Florida</p>
+              <p>U.S. of America</p>
+            </address>
+            <!-- Social Media Links -->
+            <div class="flex gap-4 items-center flex-wrap">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="flex-1 text-white space-y-4">
+            <p class="font-bold text-[20px]">Contact</p>
+            <a
+              href="mailto:info@travel.com"
+              class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-8 py-2.5 inline-block">
+              info@travel.com
+            </a>
+            <a href="tel:+01483593284" class="text-[25px] font-bold block">+ 01 483 593 284</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</html>

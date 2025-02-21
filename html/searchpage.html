@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <title>Search Page</title>
+
+    <style type="text/tailwindcss">
+      @layer base {
+        :root {
+          --font-primary: 'Poppins', sans-serif;
+          --font-secondary: 'Reenie Beanie', sans-serif;
+          --color-primary: #4f46e5;
+          --color-secondary: #e11d48;
+        }
+
+        body {
+          font-family: var(--font-primary);
+        }
+      }
+      .divided-line {
+        @apply relative;
+      }
+
+      .divided-line::before {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-b-full right-[-2px] top-[5px];
+        content: '';
+      }
+
+      .divided-line::after {
+        @apply absolute w-[3px] h-[2px] bg-indigo-500 rounded-t-full right-[-2px] bottom-[5px];
+        content: '';
+      }
+      .font-reenie {
+        font-family: var(--font-secondary);
+      }
+      .bgHero {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/b138/3f3d/049e7e32f8b6137191c3b673c975ca31?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Q1~0UHA~3x5Gty8iA30WCmXD8hMfz4R14DTX-MBQO3mNBBPug4B32LQDwa8Tp6SAAxzXM6A78VaWBVrNexeoZX3KT46N0VSMheUtch3IUwbRvDgQsXSLQkp-ZGuMuxsjuWK10MB4pjFOPi7BNVTWLIszGRZ5ZKXDDvXzCs9ccl7UD9tKwMusBLTPD1CUMgeMsSdGdutYHQEgFifMEH8pE~KLlty763ZsK7qCwC5Db4LyYt8BATyXQo3PXjmt1Z0UP0Dqjzip1LFBefgmFN0ucmVEKTwyo5pt2HKFywXZSDOpe-94w3Il1DtNE33q81NacbLpA60geWrDLsBqBmQ9xA__')] bg-cover bg-center;
+      }
+      .bgFooter {
+        @apply bg-[url('https://s3-alpha-sig.figma.com/img/367e/6b26/ffb7e3ab4140f39bcef544d448e859bd?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ju~RhnJn0oiK0CSNwiHTiMv5dEhQCclGLqHjDNAnNfjDT~XIhELr2i7o6ldcjmSNrj-NBOZZII~aalY1x~ZmAG1P8YFdUZ1CvUGrEYasqgTbelOehRYLhA~MZHOxhpHbVdFLgtILqaZWmXYf-SF4Yuj93DqFrPwJsTTlVMKW~B03TdJUL5BELdNWVK3fziKKlG31Wb9OCxTuTEL96PtCjI4-f-h4ErEvt~e689Fec50V7MBIrXjCbCcf2-E2WBMqWQJmDmzvSnh~~5mF0jQ5zzA9~SzhKLfFbbQ6uiXdwSQ8DGEyIHvh7A2oa5i953NG1Zdwg-tjfhzQRZ5qEE02kQ__')];
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="bg-gray-100">
+      <nav
+        class="h-20 container mx-auto lg:px-20 transition-all duration-all ease-in-out px-10 justify-between flex flex-wrap items-center">
+        <a class="md:max-w-[150px] max-w-[100px] transition-all duration-all ease-in-out">
+          <img class="w-full" src="../assets/logo.svg" alt="logo" />
+        </a>
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button
+            type="button"
+            class="text-white bg-[#5D5FEF] font-medium rounded-lg text-sm px-4 py-2 text-center">
+            Search
+          </button>
+          <button
+            data-collapse-toggle="navbar-sticky"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-sticky"
+            aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-sticky">
+          <ul class="lg:flex hidden items-center text-sm">
+            <li class="px-8 divided-line">
+              <a href="#">Home</a>
+            </li>
+            <li class="px-8 divided-line"><a href="#travel">Travel</a></li>
+            <li class="px-8 divided-line"><a href="#pages">Pages</a></li>
+            <li class="px-8 divided-line"><a href="#shop">Shop</a></li>
+            <li class="px-8 divided-line"><a href="#blog">Blog</a></li>
+            <li class="px-8"><a href="#contact-us">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+      <section class="h-[529px] bgHero relative">
+        <!-- Dark gradient overlay for readability -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60">
+          <h1
+            class="md:text-5xl text-3xl font-bold text-center flex items-center justify-center h-full text-white">
+            Our Packages
+          </h1>
+        </div>
+
+        <!-- Sorting and gallery section -->
+        <header
+          class="absolute container md:px-20 px-10 mx-auto bottom-8 left-0 right-0 flex-wrap flex justify-between">
+          <!-- Sorting options -->
+          <nav class="flex gap-x-6 flex-wrap">
+            <button class="space-x-2 flex">
+              <span class="uppercase text-sm text-white">Price</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <button class="space-x-2 flex">
+              <span class="uppercase text-sm text-white">Name</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+          </nav>
+
+          <!-- Image gallery -->
+          <figure class="flex space-x-2">
+            <img src="../assets/gallery1.svg" alt="Gallery image 1" />
+            <img src="../assets/gallery2.svg" alt="Gallery image 2" />
+          </figure>
+        </header>
+      </section>
+
+      <section class="my-16 container mx-auto lg:px-20 px-10 overflow-hidden">
+        <!-- Grid Layout for Filters and Content -->
+        <section class="grid grid-cols-12 gap-8 transition-all duration-100 ease-in-out">
+          <!-- Filters Section -->
+          <div class="md:col-span-6 lg:col-span-4 col-span-12 divide-y-[.5px] divide-gray-300">
+            <!-- Destination Filter -->
+            <div class="space-y-6 pb-8">
+              <h1 class="text-2xl font-bold">Select your destination:</h1>
+              <div class="w-full py-1 bg-[#EFEFEF] px-2">All Destinations</div>
+            </div>
+
+            <!-- Date Filter -->
+            <div class="py-8 space-y-6">
+              <h1 class="text-2xl font-bold">Select your date:</h1>
+              <div class="p-5 rounded-sm shadow-sm border border-gray-200/40 inset-1"></div>
+            </div>
+
+            <!-- Typologies Filter -->
+            <div class="space-y-6 py-8">
+              <h1 class="text-2xl font-bold">Typologies:</h1>
+              <div class="flex lg:flex-row flex-col md:gap-x-20">
+                <!-- Typology Checkboxes Group 1 -->
+                <div>
+                  <fieldset>
+                    <legend class="sr-only">Checkboxes</legend>
+                    <div class="space-y-2 text-sm">
+                      <label for="Option1" class="flex cursor-pointer items-start gap-4">
+                        <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Option1" />
+                        <p class="text-[#6E6E6E]">Sports Activities</p>
+                      </label>
+                      <label for="Option2" class="flex cursor-pointer items-start gap-4">
+                        <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Option2" />
+                        <p class="text-[#6E6E6E]">Heritage Tours</p>
+                      </label>
+                      <label for="Option3" class="flex cursor-pointer items-start gap-4">
+                        <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Option3" />
+                        <p class="text-[#6E6E6E]">Budget Travel</p>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+                <!-- Typology Checkboxes Group 2 -->
+                <div>
+                  <fieldset>
+                    <legend class="sr-only">Checkboxes</legend>
+                    <div class="space-y-2 text-sm">
+                      <label for="Option4" class="flex cursor-pointer items-start gap-4">
+                        <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Option4" />
+                        <p class="text-[#6E6E6E]">Family-Friendly</p>
+                      </label>
+                      <label for="Option5" class="flex cursor-pointer items-start gap-4">
+                        <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Option5" />
+                        <p class="text-[#6E6E6E]">Road Trips</p>
+                      </label>
+                      <label for="Option6" class="flex cursor-pointer items-start gap-4">
+                        <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Option6" />
+                        <p class="text-[#6E6E6E]">Culinary Tourism</p>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+
+            <!-- Max Price Filter -->
+            <div class="py-8 space-y-4">
+              <h1 class="text-2xl font-bold">Max Price:</h1>
+              <p class="text-right font-light">
+                <span class="text-[#6E6E6E]">$</span>
+                5000
+              </p>
+              <div class="h-[4px] w-full bg-[#E4E4E4]">
+                <div class="relative h-full w-[50%]">
+                  <span class="absolute w-full h-full bg-[#434A54]"></span>
+                  <span class="absolute h-4 w-4 bg-[#434A54] right-0 top-1/2 -translate-y-1/2"></span>
+                </div>
+              </div>
+              <div class="flex items-center pt-2">
+                <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="promotions" />
+                <label for="promotions" class="ms-2 text-sm font-medium text-[#6E6E6E]">
+                  See only promotions
+                </label>
+              </div>
+            </div>
+
+            <!-- Durations Filter -->
+            <div class="space-y-4 py-8">
+              <details class="group [&_summary::-webkit-details-marker]:hidden" open>
+                <summary
+                  class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg text-gray-900">
+                  <h2 class="font-bold text-2xl">Durations:</h2>
+                  <svg
+                    class="size-4 shrink-0 transition duration-300 group-open:-rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                    stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="pt-6 flex lg:flex-row flex-col flex-wrap md:gap-x-20">
+                  <div class="flex-1">
+                    <fieldset>
+                      <legend class="sr-only">Checkboxes</legend>
+                      <div class="space-y-2 text-[#6E6E6E]">
+                        <label for="Duration1" class="flex cursor-pointer items-start gap-4">
+                          <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Duration1" />
+                          <p>1 Week</p>
+                        </label>
+                        <label for="Duration2" class="flex cursor-pointer items-start gap-4">
+                          <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Duration2" />
+                          <p>15 Days</p>
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="flex-1">
+                    <fieldset>
+                      <legend class="sr-only">Checkboxes</legend>
+                      <div class="space-y-2 text-[#6E6E6E]">
+                        <label for="Duration3" class="flex cursor-pointer items-start gap-4">
+                          <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Duration3" />
+                          <p>10 Days</p>
+                        </label>
+                        <label for="Duration4" class="flex cursor-pointer items-start gap-4">
+                          <input type="checkbox" class="size-4 rounded-sm border-gray-300" id="Duration4" />
+                          <p>5 Days</p>
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Content Section -->
+          <div class="md:col-span-6 lg:col-span-8 col-span-12">
+            <!-- Grid Layout for Cards -->
+            <div class="grid grid-cols-12 gap-6">
+              <!-- Card 1: Chiang Mai -->
+              <div class="lg:col-span-6 col-span-12">
+                <article class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                  <a href="#">
+                    <img
+                      class="rounded-t-lg"
+                      src="https://s3-alpha-sig.figma.com/img/f970/61df/06638a851bd17f7057bcf6fa1bb04afc?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=L9s-M07NkWwWRuU68F7Gw9cjLGdE2PwpBh3s63fl2girmoPn73eQ9qxvm-y0uYEcLE42bTXuShORFv~8iolZIygMK8w1f7lCr86N6ytm5xOlgVt8VS0zGl6BfAI4ofanYmaTIBT47i5V1vOKlbPppOJdMvJQsZzj6XuY~0-Qb-vawcAGUx50jNcezUYBV4s8OMZ-voF8VGJc9tFCIGHFse7PfdIvduGswoQmT4FqBzPM4ghLN3iy7IqHBHukxELbZNIUSqbIcVl1oVr5QEbXY8ivGG49W1uzuUGHrYWEy6EUFY053x5xU~CvzdogMEKs4bXaaylOxRAD5q0SRaHQVw__"
+                      alt="Chiang Mai" />
+                  </a>
+                  <div class="p-5">
+                    <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/time.svg" alt="Time Icon" />
+                        <p class="text-sm font-light text-[#6E6E6E]">1 week</p>
+                      </div>
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/message.svg" alt="Message Icon" />
+                        <img src="/assets/map.svg" alt="Map Icon" />
+                      </div>
+                    </div>
+                    <div class="py-4">
+                      <h1 class="font-bold text-[20px]">Chiang Mai</h1>
+                      <div class="flex items-center gap-x-2 py-3">
+                        <i class="fa-solid fa-location-dot text-indigo-500"></i>
+                        <p class="text-sm text-[#6E6E6E]">Thailand</p>
+                      </div>
+                    </div>
+                    <hr class="text-slate-200" />
+                    <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                      Visit the temples and the Chiang Mai Night Bazaar, a huge market located on Chiang Klan
+                      Road.
+                    </p>
+                    <hr class="text-slate-200" />
+                    <div class="flex justify-between py-4 items-center">
+                      <button class="text-sm text-white bg-[#5D5FEF] py-2 px-6 rounded-md mt-4">
+                        Details
+                      </button>
+                      <div>
+                        <p class="text-sm text-[#6E6E6E] text-right">From</p>
+                        <h2 class="font-bold text-lg lg:text-[25px]">$ 490</h2>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Card 2: Chao Phraya -->
+              <div class="lg:col-span-6 col-span-12">
+                <article class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                  <a href="#">
+                    <img
+                      class="rounded-t-lg"
+                      src="https://s3-alpha-sig.figma.com/img/b138/3f3d/049e7e32f8b6137191c3b673c975ca31?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Q1~0UHA~3x5Gty8iA30WCmXD8hMfz4R14DTX-MBQO3mNBBPug4B32LQDwa8Tp6SAAxzXM6A78VaWBVrNexeoZX3KT46N0VSMheUtch3IUwbRvDgQsXSLQkp-ZGuMuxsjuWK10MB4pjFOPi7BNVTWLIszGRZ5ZKXDDvXzCs9ccl7UD9tKwMusBLTPD1CUMgeMsSdGdutYHQEgFifMEH8pE~KLlty763ZsK7qCwC5Db4LyYt8BATyXQo3PXjmt1Z0UP0Dqjzip1LFBefgmFN0ucmVEKTwyo5pt2HKFywXZSDOpe-94w3Il1DtNE33q81NacbLpA60geWrDLsBqBmQ9xA__"
+                      alt="Chao Phraya" />
+                  </a>
+                  <div class="p-5">
+                    <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/time2.svg" alt="Time Icon" />
+                        <p class="text-sm font-light text-[#6E6E6E]">1 week</p>
+                      </div>
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/message2.svg" alt="Message Icon" />
+                        <img src="/assets/map2.svg" alt="Map Icon" />
+                      </div>
+                    </div>
+                    <div class="py-4">
+                      <h1 class="font-bold text-[20px]">Chao Phraya</h1>
+                      <div class="flex items-center gap-x-2 py-3">
+                        <i class="fa-solid fa-location-dot text-[#14B9D5]"></i>
+                        <p class="text-sm text-[#6E6E6E]">Thailand</p>
+                      </div>
+                    </div>
+                    <hr class="text-slate-200" />
+                    <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                      Boat tour in the capital of Thailand, Bangkok, to see the beautiful palaces and
+                      monuments from the water.
+                    </p>
+                    <hr class="text-slate-200" />
+                    <div class="flex justify-between py-4 items-center">
+                      <button class="text-sm text-white bg-[#14B9D5] py-2 px-6 rounded-md mt-4">
+                        Details
+                      </button>
+                      <div>
+                        <p class="text-sm text-[#6E6E6E] text-right">From</p>
+                        <h2 class="font-bold text-lg lg:text-[25px]">
+                          $ 98
+                          <del class="text-sm text-[#6E6E6E]">$ 134</del>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Card 3: Bangkok -->
+              <div class="lg:col-span-6 col-span-12">
+                <article class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                  <a href="#">
+                    <img
+                      class="rounded-t-lg"
+                      src="https://s3-alpha-sig.figma.com/img/604a/e8b7/bdeb76439435bcdd5226f9f7e62e314f?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Esh7PSpnIV8x2-s2JCw5Oqdj6oMrZauGKxp5T1cmwy-F0nmxSaVHHFTYoOd0Spvw9sOjluKKvoRxLbCnizIRaCxzIlUdM2rn6m2fAOgaExR5L4fZY9R-Mrkjm9bx~NzLUtDuuz5Pl2gmgZPndFYhVKAq77RkTMcaJnRUBUQjmm0WVyJFVjlRXWedHUJERz7rZrDv7XwszCbgg4oEDttEtHOxZdev7vieWmxRHhSJb11nvZLaTm~nmFlk~RxWaD3i0kk6s88pJr79Eq2hAS9Gyreqj3HgmX7DU1OI3QSqBroWCL0BCpCe6SynpjbCPOu1i5wxBwYlq6QfD23sKc4K4Q__"
+                      alt="Bangkok" />
+                  </a>
+                  <div class="p-5">
+                    <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/time3.svg" alt="Time Icon" />
+                        <p class="text-sm font-light text-[#6E6E6E]">1 week</p>
+                      </div>
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/message3.svg" alt="Message Icon" />
+                        <img src="/assets/map3.svg" alt="Map Icon" />
+                      </div>
+                    </div>
+                    <div class="py-4">
+                      <h1 class="font-bold text-[20px]">Bangkok</h1>
+                      <div class="flex items-center gap-x-2 py-3">
+                        <i class="fa-solid fa-location-dot text-[#BA71DA]"></i>
+                        <p class="text-sm text-[#6E6E6E]">Thailand</p>
+                      </div>
+                    </div>
+                    <hr class="text-slate-200" />
+                    <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                      Marvelous culinary and cultural trip to the Thai capital with its wonderful monuments
+                      and Buddha statues.
+                    </p>
+                    <hr class="text-slate-200" />
+                    <div class="flex justify-between py-4 items-center">
+                      <button class="text-sm text-white bg-[#BA71DA] py-2 px-6 rounded-md mt-4">
+                        Details
+                      </button>
+                      <div>
+                        <p class="text-sm text-[#6E6E6E] text-right">From</p>
+                        <h2 class="font-bold text-lg lg:text-[25px]">
+                          $ 1000
+                          <del class="text-sm text-[#6E6E6E]">$ 1023</del>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Card 4: Nara -->
+              <div class="lg:col-span-6 col-span-12">
+                <article class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                  <a href="#">
+                    <img
+                      class="rounded-t-lg"
+                      src="https://s3-alpha-sig.figma.com/img/ea96/ebe0/0b0782d3f23c6e36f523af92ef454d3d?Expires=1740960000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=bOHWkl6CXlI2DOqiNvl6BbhPDp-UCBPwxuZyCV6KgpMcoe3yKua7sPzcL9cj9C08JRkIj1bcN9OpujpjRS5Db81BgALRrUp4Ohq4HiJWR4eMwcUuk3MrkHzvOou1FFMjkEAqXBtfNd27rXVwMzICwlkqq2HGhLu56UjH5GCyf~KLIfuoJQ59As8fumzKCwP2GG3RdWk2ehYJlxgkFIdVTwJGvGlK5AeqVu5BeCoCUJYSBlL5RgPKe-Y7mlMxAEFSagalbkmI0kx1rAEUhxZ5ePYWL2ye4V80WoRqcO4vp5TsL7MmjGOu~CXQOUvlPD1A6wq3USkSmVnjtv3FPY~4uQ__"
+                      alt="Nara" />
+                  </a>
+                  <div class="p-5">
+                    <div class="py-2 px-4 shadow-sm rounded-lg flex justify-between">
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/time4.svg" alt="Time Icon" />
+                        <p class="text-sm font-light text-[#6E6E6E]">1 week</p>
+                      </div>
+                      <div class="flex gap-2 items-center">
+                        <img src="/assets/message4.svg" alt="Message Icon" />
+                        <img src="/assets/map4.svg" alt="Map Icon" />
+                      </div>
+                    </div>
+                    <div class="py-4">
+                      <h1 class="font-bold text-[20px]">Nara</h1>
+                      <div class="flex items-center gap-x-2 py-3">
+                        <i class="fa-solid fa-location-dot text-[#F76570]"></i>
+                        <p class="text-sm text-[#6E6E6E]">Japan</p>
+                      </div>
+                    </div>
+                    <hr class="text-slate-200" />
+                    <p class="mb-3 py-4 font-normal text-[#6E6E6E]">
+                      Discover the incredible landmarks such as the Todai-ji temple and its famous Great
+                      Buddha statue.
+                    </p>
+                    <hr class="text-slate-200" />
+                    <div class="flex justify-between py-4 items-center">
+                      <button class="text-sm text-white bg-[#F76570] py-2 px-6 rounded-md mt-4">
+                        Details
+                      </button>
+                      <div>
+                        <p class="text-sm text-[#6E6E6E] text-right">From</p>
+                        <h2 class="font-bold text-lg lg:text-[25px]">
+                          $ 890
+                          <del class="text-sm text-[#6E6E6E]">$ 999</del>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center mt-12 justify-center text-white gap-6 flex-wrap">
+              <div class="py-1 px-3.5 bg-[#5D5FEF] rounded-md">1</div>
+              <div class="py-1 px-3.5 bg-[#434A54] rounded-md">2</div>
+              <div class="py-1 px-3.5 bg-[#434A54] rounded-md">3</div>
+              <div class="py-1 px-3.5 bg-[#434A54] rounded-md">4</div>
+              <div class="py-1 px-3.5 bg-[#434A54] rounded-md">5</div>
+              <div class="py-1 px-3.5 bg-[#434A54] rounded-md">6</div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer class="bgFooter h-[474px] bg-center bg-cover relative">
+      <!-- Overlay for better readability -->
+      <div class="absolute bg-slate-700/70 w-full h-full"></div>
+
+      <!-- Footer Content -->
+      <div class="container mx-auto lg:px-20 px-10 flex items-center w-full h-full relative z-20">
+        <div class="flex md:flex-row flex-col md:gap-y-0 gap-y-4 md:gap-10 w-full">
+          <!-- Travel Slogan Section -->
+          <div class="flex-2">
+            <h1 class="font-bold lg:text-5xl md:text-3xl leading-tight text-white">
+              Travel beyond your imagination, with our Travel Agency!
+            </h1>
+          </div>
+
+          <!-- Address Section -->
+          <div class="flex-1 text-white space-y-6">
+            <p class="font-bold text-[20px]">Address</p>
+            <address>
+              <p>1080 Brickell Ave</p>
+              <p>Miami - Florida</p>
+              <p>U.S. of America</p>
+            </address>
+            <!-- Social Media Links -->
+            <div class="flex gap-4 items-center flex-wrap">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="flex-1 text-white space-y-4">
+            <p class="font-bold text-[20px]">Contact</p>
+            <a
+              href="mailto:info@travel.com"
+              class="text-white bg-[#1BBC9B] font-medium rounded-lg text-sm px-8 py-2.5 inline-block">
+              info@travel.com
+            </a>
+            <a href="tel:+01483593284" class="text-[25px] font-bold block">+ 01 483 593 284</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</html>
